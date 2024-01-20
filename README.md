@@ -3,6 +3,9 @@ An experiment for grabbing repository data
 
 ## Summary
 
+This work is motivated by the idea that a lot of understanding of open source 
+presence and activity is prevented by the need to manually read so many repositories. s
+
 ### Context
 
 There are times when it is useful to be able to generate high level descriptions of the types of 
