@@ -1,10 +1,10 @@
 # repo_data_experiment
-An experiment for grabbing repository data 
+An experiment for grabbing repository data in preparation for analysis of the type of open source repositories an organization has under it.
 
 ## Summary
 
 This work is motivated by the idea that a lot of understanding of open source 
-presence and activity is prevented by the need to manually read so many repositories. s
+presence and activity is prevented by the need to manually read so many repositories. 
 
 ### Context
 
@@ -102,3 +102,22 @@ based on threshold boundaries across key data dimensions.
 - Samples [YES, with more work]
   - True (based on seeing works like 'sample', 'demo', 'example' in org name or repo name)
   - False
+
+## Data
+
+The datasets can potentially be used in a Houston Data Jam.
+
+### nasa_repos.json
+
+This data file was created by grabbing all the NASA repositories that Ecosyste.ms has data on (not every repository) 
+for the NASA organization on GitHub.com. Approximately 270 repositories. 
+It used the `call_api()` function in the `src/api.py` file.
+The function was called by running in a terminal located at the top of the repository ` Python src/api.py`.
+At the time, the organization being `nasa` was hardcoded into the code.
+
+### nasa_repos_flat.csv 
+
+This is the same data as in `data/nasa_repos.json` but flattened into a CSV using the `flattenJSON()` function in `src/main.py`.
+The function was called by running in a terminal located at the top of the repository `Python src/main.py`.
+At the time, the applicable file paths were hardcoded into the code.
+
