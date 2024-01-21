@@ -157,6 +157,17 @@ based on threshold boundaries across key data dimensions.
   - True (based on seeing works like 'sample', 'demo', 'example' in org name or repo name)
   - False
 
+
+### Potential questions for Houston Data Viz Meetup Data Jam
+1. How would you quickly summarize how each of these organizations' open source presence?
+2. What repositories are most impactful for each organization? What metrics could you pick for 'impact'?
+3. What are dimensions you might use to group similar organizations across GitHub? For example, how would you find all the organizations that are apparently trying to do similar things with their open source presence as the National Security Administration?
+4. What organization is most similar to CMSgov and why?
+5. Make a visualization that summarizes for management the organization's open source presence in order to give them a quick overview of the ways the GitHub organization is used and benefits for individuals and organization?
+
+Or whatever you want to answer or try.
+
+
 ## Installation of Python virtual environment.
 
 Clone repository: 
