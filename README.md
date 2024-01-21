@@ -203,7 +203,7 @@ However, best practice is to you virtual environments.
     ```shell
     pip install -r requirements.txt
     ```
-## Usage
+## Usage (getting more data and processing data)
 
 ### Getting data from another GitHub organization on the subset of repositories that Ecosyste.ms API has data on
 
@@ -230,3 +230,4 @@ I have the node.js program `http-server` [installed globally](https://www.npmjs.
 so I start up a local server like `http-server` and then 
 navigate to `http://127.0.0.1:8080/` in a browser. A python option that does the same thing 
 is [http.server](https://docs.python.org/3/library/http.server.html)
+The GitHub pages URL is [https://justingosses.github.io/repo_data_experiment/](https://justingosses.github.io/repo_data_experiment/)

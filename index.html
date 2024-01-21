@@ -41,8 +41,10 @@
 
     <script>
         window.onload = function() {
-            var defaultFile = '/data/combined_org_data/all_orgs_merged_20240120.csv';
-            loadDefaultData(defaultFile);
+            var defaultFile = 'data/combined_org_data/all_orgs_merged_20240120.csv';
+            var baseUrl = window.location.href.includes('github.io') ? '/repo_data_experiment/' : '/';
+            var defaultFilePath = baseUrl + defaultFile;
+            loadDefaultData(defaultFilePath);
         };
 
         function loadDefaultData(defaultFile) {
