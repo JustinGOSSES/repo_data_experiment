@@ -43,5 +43,3 @@ def call_api(orgName='nasa'):
         
     print("data = ", data)
     return data
-
-call_api()

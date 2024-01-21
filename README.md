@@ -1,7 +1,32 @@
 # repo_data_experiment
 An experiment for grabbing repository data in preparation for analysis of the type of open source repositories an organization has under it.
 
-## Summary
+There are two potential uses of data in this repository: 
+1. Used in a Houston Data Visualization meetup Data Jam
+2. Gathering public data for a potential future talk on repository cohorts.
+
+## Data
+
+*The datasets can potentially be used in a Houston Data Jam.*
+
+### nasa_repos.json
+
+This data file was created by grabbing all the NASA repositories that Ecosyste.ms has data on (not every repository) 
+for the NASA organization on GitHub.com. Approximately 270 repositories. 
+It used the `call_api()` function in the `src/api.py` file.
+The function was called by running in a terminal located at the top of the repository ` Python src/api.py`.
+At the time, the organization being `nasa` was hardcoded into the code.
+
+### nasa_repos_flat.csv 
+
+This is the same data as in `data/nasa_repos.json` but flattened into a CSV using the `flattenJSON()` function in `src/main.py`.
+The function was called by running in a terminal located at the top of the repository `Python src/main.py`.
+At the time, the applicable file paths were hardcoded into the code.
+
+The CSV can be seen in an easy to see formatted manner on github.com direct link: https://github.com/JustinGOSSES/repo_data_experiment/blob/main/data/nasa_repos_flat.csv
+
+
+## Why repository metadata?
 
 This work is motivated by the idea that a lot of understanding of open source 
 presence and activity is prevented by the need to manually read so many repositories. 
@@ -103,21 +128,63 @@ based on threshold boundaries across key data dimensions.
   - True (based on seeing works like 'sample', 'demo', 'example' in org name or repo name)
   - False
 
-## Data
+## Installation of Python virtual environment.
 
-The datasets can potentially be used in a Houston Data Jam.
+Clone repository: 
 
-### nasa_repos.json
+1. Run in terminal `git clone https://github.com/JustinGOSSES/repo_data_experiment.git`
+2. `cd repo_data_experiment`
 
-This data file was created by grabbing all the NASA repositories that Ecosyste.ms has data on (not every repository) 
-for the NASA organization on GitHub.com. Approximately 270 repositories. 
-It used the `call_api()` function in the `src/api.py` file.
-The function was called by running in a terminal located at the top of the repository ` Python src/api.py`.
-At the time, the organization being `nasa` was hardcoded into the code.
+Only basic python packages are used (pandas, requests, etc.) so you existing base environment might be fine.
+However, best practice is to you virtual environments.
 
-### nasa_repos_flat.csv 
+### Using conda
 
-This is the same data as in `data/nasa_repos.json` but flattened into a CSV using the `flattenJSON()` function in `src/main.py`.
-The function was called by running in a terminal located at the top of the repository `Python src/main.py`.
-At the time, the applicable file paths were hardcoded into the code.
+1. Create a new conda environment:
+    ```shell
+    conda create --name myenv
+    ```
 
+2. Activate the environment:
+    ```shell
+    conda activate myenv
+    ```
+
+3. Install the required packages from the requirements.txt file:
+    ```shell
+    conda install --file requirements.txt
+    ```
+
+### Using virtualenv
+
+1. Create a new virtual environment:
+    ```shell
+    python -m venv myenv
+    ```
+
+2. Activate the environment:
+    - On Windows:
+      ```shell
+      myenv\Scripts\activate
+      ```
+    - On macOS and Linux:
+      ```shell
+      source myenv/bin/activate
+      ```
+
+3. Install the required packages from the requirements.txt file:
+    ```shell
+    pip install -r requirements.txt
+    ```
+## Usage
+
+### Getting data from another GitHub organization on the subset of repositories that Ecosyste.ms API has data on
+
+In a terminal, call the functions like this replacing the string after --orgName, in this case `houstondatavis`.
+
+`Python src/main.py --orgName houstondatavis --function call_api`
+
+### Flattening the JSON that is returned in the last step into a flat CSV to make it easier to work with the data
+In a terminal, call the functions like this replacing the strings after --inputFilePath and after --outputFilePath.
+
+`Python src/main.py --inputFilePath data/houstondatavis_repos.json --outputFilePath data/houstondatavis_repos_flat.csv  --function flattenJSON`
