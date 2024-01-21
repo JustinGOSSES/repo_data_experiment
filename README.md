@@ -53,6 +53,8 @@ It is suspect to not have as long of a history on GitHub compared to NASA with m
 actual products and services run by the organization with GitHub being used in part as a way to make it others 
 to use, build upon, and contribute to the code bases. 
 
+See the combined CSV as an HTML table here: https://justingosses.github.io/repo_data_experiment/
+
 ## Why repository metadata?
 
 This work is motivated by the idea that a lot of understanding of open source 
