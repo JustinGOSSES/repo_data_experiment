@@ -9,22 +9,49 @@ There are two potential uses of data in this repository:
 
 *The datasets can potentially be used in a Houston Data Jam.*
 
-### nasa_repos.json
+### Example datasets
+#### data/nasa_repos.json
 
 This data file was created by grabbing all the NASA repositories that Ecosyste.ms has data on (not every repository) 
-for the NASA organization on GitHub.com. Approximately 270 repositories. 
-It used the `call_api()` function in the `src/api.py` file.
-The function was called by running in a terminal located at the top of the repository ` Python src/api.py`.
-At the time, the organization being `nasa` was hardcoded into the code.
+for the NASA organization on GitHub.com. Approximately 270 repositories, so not every repository. The ones with 
+low engagement are probably the skipped ones. 
 
-### nasa_repos_flat.csv 
+#### data/nasa_repos_flat.csv 
 
 This is the same data as in `data/nasa_repos.json` but flattened into a CSV using the `flattenJSON()` function in `src/main.py`.
-The function was called by running in a terminal located at the top of the repository `Python src/main.py`.
-At the time, the applicable file paths were hardcoded into the code.
 
 The CSV can be seen in an easy to see formatted manner on github.com direct link: https://github.com/JustinGOSSES/repo_data_experiment/blob/main/data/nasa_repos_flat.csv
 
+#### combined_org_data/all_orgs_merged_20240120.csv
+
+The `all_orgs_merged_20240120.csv` file has 1111 repositories from the GitHub organizations 
+nasa, CMSgov, airbnb, houstondataviz, home-assistant, NationalSecurityAgency.
+
+These organizations were selected as they represented organizations with different histories or patterns of how they use GitHub 
+for open source. 
+
+[The NASA GitHub organization](https://github.com/nasa) has a comparably longer history on GitHub for a 
+government organization. They also have more than normal suspect pattern of "publishing" code that then 
+quickly has not other development happening with it due to the culture of 
+"publishing" papers, reports, etc. that exists in the organization. 
+
+[NationalSecurityAgency](https://github.com/NationalSecurityAgency) is the GitHub organization of 
+the US government's National Security Agency or NSA. It has a more narrow scope of the 
+type and reasons for open source and less suspected tendency to drop repositories without continued development. 
+
+[Home-assistant is an extremely popular open source home automation](https://github.com/home-assistant) collection of products and tools with expected extremely diverse and large contribution community. 
+The GitHub organization ~ the product ~ the people organization. 
+
+[AirBnB is a tech company](https://github.com/airbnb) founded as a digital first company. They also have an engineering blog and a record of contributing 
+open source used by others in some cases. 
+
+[houstondataviz is the GitHub organization](https://github.com/houstondatavis) used by the Houston DataViz Meetup. Most of the use is associated with 
+brief one-time only data jams as opposed to being repositories of products, tools, packages, websites, etc. 
+
+[CMSgov is the GitHub Organization](https://github.com/CMSgov) of the Centers for Medicare & Medicaid Services. 
+It is suspect to not have as long of a history on GitHub compared to NASA with more of a focus on 
+actual products and services run by the organization with GitHub being used in part as a way to make it others 
+to use, build upon, and contribute to the code bases. 
 
 ## Why repository metadata?
 
@@ -188,3 +215,18 @@ In a terminal, call the functions like this replacing the string after --orgName
 In a terminal, call the functions like this replacing the strings after --inputFilePath and after --outputFilePath.
 
 `Python src/main.py --inputFilePath data/houstondatavis_repos.json --outputFilePath data/houstondatavis_repos_flat.csv  --function flattenJSON`
+
+### Creating a combined CSV files of all the org specific CSV files.
+
+`Python src/main.py --folderPathToLookForCSVsToMerge data --outputFilePath data/combined_org_data/all_orgs_merged_20240120.csv  --function mergeMultipleOrgCSV`
+
+See the `src/main.py` file for how this all works.
+
+### Quickly checking out the data visually 
+There is a top-level `index.html` page which when stood up and viewed in a browser or as a GitHub pages page
+will make it easy to see all the columns and the amount of empty cells. 
+
+I have the node.js program `http-server` [installed globally](https://www.npmjs.com/package/http-server) 
+so I start up a local server like `http-server` and then 
+navigate to `http://127.0.0.1:8080/` in a browser. A python option that does the same thing 
+is [http.server](https://docs.python.org/3/library/http.server.html)

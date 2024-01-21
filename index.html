@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Viewer</title>
+    <style>
+        /* Add your CSS styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <h1>CSV Data Viewer</h1>
+    <div>
+        <p>
+            This is a very simple HTML page that makes it easy to view a CSV file from this repository. 
+            You can select to view any of the other CSV files if they are too big to nicely display on 
+            GitHub.com or in your editor.
+        </p>
+        <p>
+            The initial file loaded is <code>/data/combined_org_data/all_orgs_merged_20240120.csv</code>. 
+            It uses <a href="https://d3js.org/">D3.js</a> to load the CSV file and display it in a table.
+        </p>
+    </div>
+    <div>
+        <label for="csv-file">Select a different CSV file:</label>
+        <input type="file" id="csv-file" accept=".csv">
+        <label for="loadData">after selection, be sure to hit load button!</label>
+        <button id="loadData" onclick="loadData()">Load Data</button>
+    </div>
+    <table id="data-table">
+        <!-- Table data will be inserted here -->
+    </table>
+
+    <script>
+        window.onload = function() {
+            var defaultFile = '/data/combined_org_data/all_orgs_merged_20240120.csv';
+            loadDefaultData(defaultFile);
+        };
+
+        function loadDefaultData(defaultFile) {
+            d3.text(defaultFile).then(function(csvData) {
+                processData(csvData);
+            });
+        }
+
+        function loadData() {
+            var fileInput = document.getElementById('csv-file');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var contents = e.target.result;
+                processData(contents);
+            };
+            reader.readAsText(file);
+        }
+
+        function processData(csvData) {
+            var data = d3.csvParse(csvData);
+            var table = d3.select('#data-table');
+            var keys = d3.keys(data[0]);
+            table.select('thead').remove();
+            table.select('tbody').remove();
+            table.append('thead').append('tr')
+                .selectAll('th')
+                .data(keys)
+                .enter().append('th')
+                .text(function(d) { return d; });
+            table.append('tbody')
+                .selectAll('tr')
+                .data(data)
+                .enter().append('tr')
+                .selectAll('td')
+                .data(function(row) {
+                    return keys.map(function(key) {
+                        return {value: row[key]};
+                    });
+                })
+                .enter().append('td')
+                .text(function(d) { return d.value; });
+        }
+    </script>
+</body>
+</html>
