@@ -55,6 +55,11 @@ to use, build upon, and contribute to the code bases.
 
 See the combined CSV as an HTML table here: https://justingosses.github.io/repo_data_experiment/
 
+## License
+The data in this repository is from the [Ecosyste.ms](https://ecosyste.ms/) API as such, it has a 
+license of [https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/) . 
+Be sure to attribute Ecosyste.ms and use the same license.
+
 ## Why repository metadata?
 
 This work is motivated by the idea that a lot of understanding of open source 
