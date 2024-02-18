@@ -156,3 +156,37 @@ display(
   })
 )
 ```
+
+### Last pushed over time
+```js
+display(
+    Plot.plot({
+    title: "Repos Last Updated Over Time",
+    width: 800,
+    height: 300,
+    y: {grid: true, label: "?"},
+    color: {...color, legend: true},
+    marks: [
+      Plot.rectY(repos, Plot.binX({y: "count"}, {x: "updated_at", fill: "language", interval: "year", tip: true})),
+      Plot.ruleY([0])
+    ]
+  })
+)
+```
+
+### Last synced?
+```js
+display(
+    Plot.plot({
+    title: "Repos Last synched Over Time",
+    width: 800,
+    height: 300,
+    y: {grid: true, label: "Synced"},
+    color: {...color, legend: true},
+    marks: [
+      Plot.rectY(repos, Plot.binX({y: "count"}, {x: "synced_at", fill: "owner", interval: "year", tip: true})),
+      Plot.ruleY([0])
+    ]
+  })
+)
+```
