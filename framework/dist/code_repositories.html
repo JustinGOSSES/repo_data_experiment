@@ -52,7 +52,7 @@
 
 import {define} from "./observablehq/client.js";
 
-define({id: "4765145c", inputs: ["FileAttachment"], outputs: ["forecast"], files: [{"name":"./data/airbnb_repos.json","mimeType":"application/json","path":"./_file/data/airbnb_repos.json"}], body: (FileAttachment) => {
+define({id: "4765145c", inputs: ["FileAttachment"], outputs: ["forecast"], files: [{"name":"./data/airbnb_repos.json","mimeType":"application/json","path":"./file/data/airbnb_repos.json"}], body: (FileAttachment) => {
 const forecast = FileAttachment("./data/airbnb_repos.json").json();
 return {forecast};
 }});
@@ -61,7 +61,7 @@ define({id: "11cfe508", inputs: ["display","forecast"], body: (display,forecast)
 display(forecast)
 }});
 
-define({id: "dd9124b0", inputs: ["FileAttachment"], outputs: ["repos"], files: [{"name":"./data/all_orgs_merged_20240120.csv","mimeType":"text/csv","path":"./_file/data/all_orgs_merged_20240120.csv"}], body: (FileAttachment) => {
+define({id: "dd9124b0", inputs: ["FileAttachment"], outputs: ["repos"], files: [{"name":"./data/all_orgs_merged_20240120.csv","mimeType":"text/csv","path":"./file/data/all_orgs_merged_20240120.csv"}], body: (FileAttachment) => {
 const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
 return {repos};
 }});
