@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Data | framework_code_repos</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.13/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/binary-search-bounds@2.0.5/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-axis@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-brush@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-chord@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-color@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-contour@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dsv@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-ease@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-fetch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-format@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-geo@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-interpolate@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-path@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-polygon@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-random@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-selection@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-shape@3.2.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time-format@4.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-timer@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-transition@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-zoom@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3@7.8.5/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/delaunator@5.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/internmap@2.0.3/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/interval-tree-1d@1.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/isoformat@0.2.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/robust-predicates@3.0.2/+esm">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+
+define({id: "dd9124b0", inputs: ["FileAttachment"], outputs: ["repos"], files: [{"name":"./data/all_orgs_merged_20240120.csv","mimeType":"text/csv","path":"./_file/data/all_orgs_merged_20240120.csv"}], body: (FileAttachment) => {
+const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+return {repos};
+}});
+
+define({id: "f12da7f0", inputs: ["display","repos"], body: (display,repos) => {
+display(repos)
+}});
+
+define({id: "5d95cf46", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "nasa").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "ce5d609b", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "CMSgov").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "8cabe59e", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "NationalSecurityAgency").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "bc6fe25b", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "airbnb").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "0b85783e", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "home-assistant").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "63c5c74b", inline: true, inputs: ["repos","display"], body: async (repos,display) => {
+display(await(
+repos.filter((d) => d.owner === "houstondatavis").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "7030cdaf", inputs: ["Plot","d3","repos"], outputs: ["color","colorLanguage"], body: (Plot,d3,repos) => {
+const color = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.owner).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+
+const colorLanguage = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.language).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+return {color,colorLanguage};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">framework_code_repos</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./code-repositories">Over time</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./the-data">Data</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="#observablehq-main h1:not(:first-of-type), #observablehq-main h2:not(h1 + h2):has(a.observablehq-header-anchor)">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#number-of-code-repositories">Number of code repositories</a></li>
+</ol>
+</nav>
+</aside>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<style>
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans-serif);
+  margin: 4rem 0 8rem;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 2rem 0;
+  max-width: none;
+  font-size: 14vw;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h2 {
+  margin: 0;
+  max-width: 34em;
+  font-size: 20px;
+  font-style: initial;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--theme-foreground-muted);
+}
+
+@media (min-width: 640px) {
+  .hero h1 {
+    font-size: 90px;
+  }
+}
+
+</style>
+<h1 id="data" tabindex="-1"><a class="observablehq-header-anchor" href="#data">Data</a></h1>
+<h2 id="visualizing-code-repositories-metadata" tabindex="-1"><a class="observablehq-header-anchor" href="#visualizing-code-repositories-metadata">Visualizing Code Repositories Metadata</a></h2>
+<p><a href="https://github.com/JustinGOSSES/repo_data_experiment">The code repository that builds this page</a></p>
+<span><!-- ### AirBnB data loaded as JSON
+
+```
+const forecast = FileAttachment("./data/airbnb_repos.json").json();
+```
+
+
+```js
+const forecast = FileAttachment("./data/airbnb_repos.json").json();
+```
+
+```js
+display(forecast)
+``` -->
+</span><h3 id="all-github-organizations-data-gathered-in-the-flattened-csv" tabindex="-1"><a class="observablehq-header-anchor" href="#all-github-organizations-data-gathered-in-the-flattened-csv">All GitHub Organizations Data Gathered in the Flattened CSV</a></h3>
+<pre><code>const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+</code></pre>
+<div id="cell-dd9124b0" class="observablehq observablehq--block"></div>
+<div id="cell-f12da7f0" class="observablehq observablehq--block observablehq--loading"></div>
+<h2 id="number-of-code-repositories" tabindex="-1"><a class="observablehq-header-anchor" href="#number-of-code-repositories">Number of code repositories</a></h2>
+<p>Important to note that this data comes from Ecosyste.ms API. Ecosyste.ms
+doesn't collect data on all repositories but rather the subset with engagement,
+that are source for a package, etc. The total number of repositories actually
+in each GitHub organization is larger than what is captured here.</p>
+<div class="grid grid-cols-3">
+  <div class="card">
+    <h2>NASA (US government agency)</h2>
+    <span class="big"><span id="cell-5d95cf46" class="observablehq--loading"></span></span>
+  </div>
+   <div class="card">
+    <a href="https://github.com/cmsgov"><h2>Centers for Medicare &amp; Medicaid Services (US government agency)</h2></a>
+    <span class="big"><span id="cell-ce5d609b" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>National Security Agency (US government agency)</h2>
+    <span class="big"><span id="cell-8cabe59e" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>AirBnB (tech company known for creating open source tools)</h2>
+    <span class="big"><span id="cell-bc6fe25b" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>home-assistant (one of the most forked and contributed to open source projects)</h2>
+    <span class="big"><span id="cell-0b85783e" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>houstondatavis (local meetup for data visualization)</h2>
+    <span class="big"><span id="cell-63c5c74b" class="observablehq--loading"></span></span>
+  </div>
+</div>
+<div id="cell-7030cdaf" class="observablehq observablehq--block"></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./code-repositories"><span>Over time</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank">Observable</a> on <a title="2024-02-18T02:26:43">Feb 18, 2024</a>.</div>
+</footer>
+</div>
