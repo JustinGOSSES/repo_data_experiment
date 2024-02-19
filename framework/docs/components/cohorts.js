@@ -2,6 +2,8 @@
 
 
 
+// const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+
 
 function addYearToRepos(repos) {
     return repos.map((repo) => {
@@ -24,10 +26,10 @@ function addAgeInDaysCol(repos) {
 }
 
 function parseColumnsIntoIntegersFromStrings(repos, arrayOfKeys) {
-    for (const key in repos) {
+    for (const repo of repos) {
         for (const column of arrayOfKeys) {
-            if (key.includes(column)) {
-                repos[key] = parseInt(repos[key]);
+            if (repo.hasOwnProperty(column)) {
+                repo[column] = parseInt(repo[column]);
             }
         }
     }
@@ -82,15 +84,29 @@ export function createCohortColumns(repos, functionList) {
     return modifiedRepos;
 }
 
-export const repos_cohort_processed = createCohortColumns(repos, [
-    {"addYearToRepos":[]},
-    {"addAgeInDaysCol":[]},
-    {"parseColumnsIntoIntegersFromStrings":["commit_stats.total", "commit_stats.mean", "commit_stats.dds"]},
-    {"createCohortNumericalCol":["commit_stats.total_committers", "committersNonZero", 0.2,100000]},
-    {"createCohortNumericalCol":["commit_stats.total_committers", "committers1-20", 0.2,20.5]},
-    {"createCohortNumericalCol":["commit_stats.total_committers", "committers20-100", 20.5,100.5]},
-    {"createCohortNumericalCol":["commit_stats.total_committers", "committers100plus", 100.5,10000000]}
-])
+export function repos_cohort_processed_BaseCohorts(repos){
+    return createCohortColumns(repos, [
+        {"addYearToRepos":[]},
+        {"addAgeInDaysCol":[]},
+        {"parseColumnsIntoIntegersFromStrings":["commit_stats.total_commits", "commit_stats.total_committers","commit_stats.mean_commits", "commit_stats.dds"]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "committersNonZero", 0.2,100000]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "committers1-20", 0.2,20.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "committers20-100", 20.5,100.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "committers100plus", 100.5,10000000]}
+    ])
+}
+
+
+
+// export const repos_cohort_processed = createCohortColumns(repos, [
+//     {"addYearToRepos":[]},
+//     {"addAgeInDaysCol":[]},
+//     {"parseColumnsIntoIntegersFromStrings":["commit_stats.total", "commit_stats.mean", "commit_stats.dds"]},
+//     {"createCohortNumericalCol":["commit_stats.total_committers", "committersNonZero", 0.2,100000]},
+//     {"createCohortNumericalCol":["commit_stats.total_committers", "committers1-20", 0.2,20.5]},
+//     {"createCohortNumericalCol":["commit_stats.total_committers", "committers20-100", 20.5,100.5]},
+//     {"createCohortNumericalCol":["commit_stats.total_committers", "committers100plus", 100.5,10000000]}
+// ])
 
 
 // // =======
