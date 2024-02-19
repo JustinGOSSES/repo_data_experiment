@@ -278,3 +278,8 @@ display(
 ```js
 display(reposWithMoreThan100Committers)
 ```
+
+```js
+import repos_cohort_processed from './components/cohorts';
+display(epos_cohort_processed)
+```
