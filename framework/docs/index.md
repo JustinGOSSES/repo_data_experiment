@@ -1,5 +1,5 @@
 ---
-toc: false
+toc: true
 ---
 
 <style>
@@ -44,67 +44,39 @@ toc: false
 
 </style>
 
+
 <div class="hero">
-  <h1>Hello, Observable Framework</h1>
-  <h2>Welcome to your new project! Edit&nbsp;<code style="font-size: 90%;">docs/index.md</code> to change this page.</h2>
-  <a href="https://observablehq.com/framework/getting-started" target="_blank">Get started<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
+  <h1>Houston Data Jam</h1>
+  <h2>Visualizing metadata about hundreds of repositories using data sourced from Ecosyste.ms API</h2>
 </div>
 
-<div class="grid grid-cols-2" style="grid-auto-rows: 504px;">
-  <div class="card">${
-    resize((width) => Plot.plot({
-      title: "Your awesomeness over time 🚀",
-      subtitle: "Up and to the right!",
-      width,
-      y: {grid: true, label: "Awesomeness"},
-      marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(aapl, {x: "Date", y: "Close", tip: true})
-      ]
-    }))
-  }</div>
-  <div class="card">${
-    resize((width) => Plot.plot({
-      title: "How big are penguins, anyway? 🐧",
-      width,
-      grid: true,
-      x: {label: "Body mass (g)"},
-      y: {label: "Flipper length (mm)"},
-      color: {legend: true},
-      marks: [
-        Plot.linearRegressionY(penguins, {x: "body_mass_g", y: "flipper_length_mm", stroke: "species"}),
-        Plot.dot(penguins, {x: "body_mass_g", y: "flipper_length_mm", stroke: "species", tip: true})
-      ]
-    }))
-  }</div>
-</div>
 
----
+## The dataset is metadata about open source code repositories. 
 
-## Next steps
+Historically, you would have to read code repositories to find out what is in them. 
+This obviously doesn't scale to hundreds or thousands of repositories in a single 
+GitHub organization, let along many organizations. And as a result, there's certain 
+classes of insights that come from analyzing GitHub organizations at scale that 
+few people every do as it was too much of a pain to get the data. 
 
-Here are some ideas of things you could try…
+While the GitHub API lets you grab metadata about repositories, it is typically 
+very pinpoint information and only one little piece at a time. 
+The recent advancement in this space is there are starting to be more APIs that 
+provide pre-aggregated repository-level metadata in a single API call. 
+[Ecosyste.ms](https://ecosyste.ms/) is one example that is used in this data jam.
+This lets you get a description of hundreds of repositories across an GitHub
+organization in seconds instead what previously took hours. 
 
-<div class="grid grid-cols-4">
-  <div class="card">
-    Chart your own data using <a href="https://observablehq.com/framework/lib/plot"><code>Plot</code></a> and <a href="https://observablehq.com/framework/javascript/files"><code>FileAttachment</code></a>. Make it responsive using <a href="https://observablehq.com/framework/javascript/display#responsive-display"><code>resize</code></a>.
-  </div>
-  <div class="card">
-    Create a <a href="https://observablehq.com/framework/routing">new page</a> by adding a Markdown file (<code>whatever.md</code>) to the <code>docs</code> folder.
-  </div>
-  <div class="card">
-    Add a drop-down menu using <a href="https://observablehq.com/framework/javascript/inputs"><code>Inputs.select</code></a> and use it to filter the data shown in a chart.
-  </div>
-  <div class="card">
-    Write a <a href="https://observablehq.com/framework/loaders">data loader</a> that queries a local database or API, generating a data snapshot on build.
-  </div>
-  <div class="card">
-    Import a <a href="https://observablehq.com/framework/javascript/imports">recommended library</a> from npm, such as <a href="https://observablehq.com/framework/lib/leaflet">Leaflet</a>, <a href="https://observablehq.com/framework/lib/dot">GraphViz</a>, <a href="https://observablehq.com/framework/lib/tex">TeX</a>, or <a href="https://observablehq.com/framework/lib/duckdb">DuckDB</a>.
-  </div>
-  <div class="card">
-    Ask for help, or share your work or ideas, on the <a href="https://talk.observablehq.com/">Observable forum</a>.
-  </div>
-  <div class="card">
-    Visit <a href="https://github.com/observablehq/framework">Framework on GitHub</a> and give us a star. Or file an issue if you’ve found a bug!
-  </div>
-</div>
+## The dataset today is a flattened CSV of several different Organizations on GitHub. 
+
+### Harvesting more data
+The `src` folder holds the python code used to call the ecosyste.ms API. 
+You can use that to collect more data or adapt it in your preferred language. 
+Ecosyste.ms also has a webpage where some information can be accessed via GUI.
+
+### Pre-harvested data
+The `data` directory holds the pre-gathered data for the data jam. 
+The data is returned from the API calls in JSON format. We've also created a 
+flattened and merged CSV in the `combined_org_data` subdirectory. The merged and 
+flattened `all_orgs_merged_20240120.csv` file is probably the easiest place to start 
+if you want to focus on data visualization today. 
