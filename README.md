@@ -1,9 +1,16 @@
 # repo_data_experiment
-An experiment for grabbing repository data in preparation for analysis of the type of open source repositories an organization has under it.
+This repository was an experiment for grabbing metadata about open source code 
+repositories across entire GitHub organizations with the idea that the data could be 
+used as the dataset of a Houston Data Visualization meetup Saturday data jam, which 
+it was on Saturday February 17th, 2024. 
 
-There are two potential uses of data in this repository: 
-1. Used in a Houston Data Visualization meetup Data Jam
-2. Gathering public data for a potential future talk on repository cohorts.
+## Structure of this repository
+At a high level this repository is broken into 3 parts: 
+1. The `data` directory holds the collected data. 
+2. The `src` directory holds the python code used to harvest the data via the Ecosyste.ms API.
+3. The `framework` directory holds a quick experiment using the new Observable Framework library to create a static page that visualizes the data briefly. 
+
+There's also a index.html at the top level for quickly inspecting the data CSVs.
 
 ## Data
 
@@ -55,11 +62,6 @@ to use, build upon, and contribute to the code bases.
 
 See the combined CSV as an HTML table here: https://justingosses.github.io/repo_data_experiment/
 
-## License
-The data in this repository is from the [Ecosyste.ms](https://ecosyste.ms/) API as such, it has a 
-license of [https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/) . 
-Be sure to attribute Ecosyste.ms and use the same license.
-
 ## Why repository metadata?
 
 This work is motivated by the idea that a lot of understanding of open source 
@@ -110,7 +112,9 @@ Open Source Summit North America Conference.
 It refers to the idea that it can be advantageous to have pre-calculated cohorts of repositories identified 
 based on threshold boundaries across key data dimensions. 
 
-#### Repository cohort categories
+#### Repository cohort categories 
+
+These are potential thresholds you might use to create categorical data from continuous data. 
 
 ##### Age
 - Age: [YES, CAN CREATE WITH ECOSYSTE.MS]
