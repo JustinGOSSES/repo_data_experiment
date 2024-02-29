@@ -49,7 +49,7 @@ toc: true
 
 </style>
 
-# Data
+# Community Size
 ## Visualizing Code Repositories Metadata
 [The code repository that builds this page](https://github.com/JustinGOSSES/repo_data_experiment)
 
@@ -111,11 +111,13 @@ function filterData(data, columnName, trueOrFalse) {
   return data.filter((item) => item[columnName] === trueOrFalse);
 }
 
-const reposWithYearCommitData = filterData(repos_cohort_processed,"committersNonZero", true)
+const reposWithYearCommitData = filterData(repos_cohort_processed,"cohort_committersNonZero", true)
 
-const reposWithMoreThan100Committers = filterData(repos_cohort_processed,"committers100plus", true)
+const reposWithMoreThan100Committers = filterData(repos_cohort_processed,"cohort_committers100plus", true)
 
-const reposWith20to100Committers = filterData(repos_cohort_processed,"committers20-100", true)
+const reposWith20to100Committers = filterData(repos_cohort_processed,"cohort_committers20-100", true)
+
+const reposSamples = filterData(repos_cohort_processed,"cohort_Sample", true)
 
 ```
 
@@ -123,6 +125,11 @@ const reposWith20to100Committers = filterData(repos_cohort_processed,"committers
 ```js
 display(repos_cohort_processed)
 ```
+##### Samples 
+```js
+display(reposSamples)
+```
+-------------
 
 ## Number of code repositories 
 Important to note that this data comes from Ecosyste.ms API. Ecosyste.ms 

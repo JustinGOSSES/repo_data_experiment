@@ -25,6 +25,25 @@ function addAgeInDaysCol(repos) {
     });
 }
 
+function addDaysSinceCols(repos,colName,newColName) {
+    return repos.map((repo) => {
+        const At = new Date(repo[colName]);
+        const currentDate = new Date();
+        const timeDiff = Math.abs(currentDate - At);
+        const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        const updatedRepo = { ...repo, [newColName]: daysDiff };
+        return updatedRepo;
+    });
+}
+
+function createRatioColumn(repos, col1, col2, newColName) {
+    return repos.map((repo) => {
+        const ratio = repo[col1] / repo[col2];
+        const updatedRepo = { ...repo, [newColName]: ratio };
+        return updatedRepo;
+    });
+}
+
 function parseColumnsIntoIntegersFromStrings(repos, arrayOfKeys) {
     for (const repo of repos) {
         for (const column of arrayOfKeys) {
@@ -38,7 +57,7 @@ function parseColumnsIntoIntegersFromStrings(repos, arrayOfKeys) {
 
 function createCohortNumericalCol(data, column, cohortColName, baseThreshold, topThreshold) {
     return data.map((item) => {
-      if (item[column] > baseThreshold && item[column] < topThreshold) {
+      if (item[column] > baseThreshold && item[column] <= topThreshold) {
         return { ...item, [cohortColName]: true };
       } else {
         return { ...item, [cohortColName]: false };
@@ -46,14 +65,22 @@ function createCohortNumericalCol(data, column, cohortColName, baseThreshold, to
     });
 }
   
-function createCohortStringSingleVal(data, column, cohortColName, valueList) {
+function createCohortStringListPossibleValues(data, column, cohortColName, valueList) {
     return data.map((item) => {
-      if (valueList.includes(item[column])) {
-        return { ...item, [cohortColName]: true };
-      } else {
-        return { ...item, [cohortColName]: false };
-      }
+        const columnValue = item[column];
+        const isSubstring = valueList.some((value) => columnValue.includes(value));
+        return { ...item, [cohortColName]: isSubstring };
     });
+}
+
+function createCohortIfEitherColumnIsTrue(data, column1, column2, cohortColName) {
+        return data.map((item) => {
+            if (item[column1] || item[column2]) {
+                return { ...item, [cohortColName]: true };
+            } else {
+                return { ...item, [cohortColName]: false };
+            }
+        });
 }
 
 export function createCohortColumns(repos, functionList) {
@@ -68,14 +95,23 @@ export function createCohortColumns(repos, functionList) {
             case "addAgeInDaysCol":
                 modifiedRepos = addAgeInDaysCol(modifiedRepos);
                 break;
+            case "addDaysSinceCols":
+                modifiedRepos = addDaysSinceCols(modifiedRepos, ...args);
+                break;
             case "parseColumnsIntoIntegersFromStrings":
                 modifiedRepos = parseColumnsIntoIntegersFromStrings(modifiedRepos, args);
                 break;
             case "createCohortNumericalCol":
                 modifiedRepos = createCohortNumericalCol(modifiedRepos, ...args);
                 break;
-            case "createCohortStringSingleVal":
-                modifiedRepos = createCohortStringSingleVal(modifiedRepos, ...args);
+            case "createCohortStringListPossibleValues":
+                modifiedRepos = createCohortStringListPossibleValues(modifiedRepos, ...args);
+                break;
+            case "createRatioColumn":
+                modifiedRepos = createRatioColumn(modifiedRepos, ...args);
+                break;
+            case "createCohortIfEitherColumnIsTrue":
+                modifiedRepos = createCohortIfEitherColumnIsTrue(modifiedRepos, ...args);
                 break;
             default:
                 break;
@@ -86,13 +122,30 @@ export function createCohortColumns(repos, functionList) {
 
 export function repos_cohort_processed_BaseCohorts(repos){
     return createCohortColumns(repos, [
+        //// created calculated columns used in cohorts ////
         {"addYearToRepos":[]},
         {"addAgeInDaysCol":[]},
+        {"addDaysSinceCols":["updated_at","cohort_daysSinceUpdated"]},
         {"parseColumnsIntoIntegersFromStrings":["commit_stats.total_commits", "commit_stats.total_committers","commit_stats.mean_commits", "commit_stats.dds"]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "committersNonZero", 0.2,100000]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "committers1-20", 0.2,20.5]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "committers20-100", 20.5,100.5]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "committers100plus", 100.5,10000000]}
+        {"createRatioColumn":["stargazers_count","commit_stats.total_committers","ratio_stargazersToCommitters"]},
+        {"createRatioColumn":["stargazers_count","forks_count","ratio_stargazersToForks"]},
+        {"createRatioColumn":["subscribers_count","commit_stats.total_committers","ratio_watchersToCommitters"]},
+        //// sample or demo or example cohorts ////
+        {"createCohortStringListPossibleValues":["full_name", "cohort_Sample_fullName", ["sample","demo","example","tutorial"]]},
+        {"createCohortStringListPossibleValues":["description", "cohort_Sample_Description", ["sample","demo","example","tutorial"]]},
+        {"createCohortIfEitherColumnIsTrue":["cohort_Sample_fullName", "cohort_Sample_Description", "cohort_Sample"]},
+        //// committer community size cohorts ////
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committersNonZero", 0.2,100000]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers1-20", 0.2,20.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers20-100", 20.5,100.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers100plus", 100.5,10000000]},
+        //// age cohorts ////
+        {"createCohortNumericalCol":["age_in_days", "cohort_age_baby30d", 0,30]},
+        {"createCohortNumericalCol":["age_in_days", "cohort_age_toddler30to90d", 30,90]},
+        {"createCohortNumericalCol":["age_in_days", "cohort_age_teen90to365d", 90,365]},
+        {"createCohortNumericalCol":["age_in_days", "cohort_age_adult365to1095d", 365,1095]},
+        {"createCohortNumericalCol":["age_in_days", "cohort_age_seniorMore1095d", 1095,100000000000000]},
+        ////
     ])
 }
 

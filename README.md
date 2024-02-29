@@ -120,8 +120,9 @@ These are potential thresholds you might use to create categorical data from con
 - Age: [YES, CAN CREATE WITH ECOSYSTE.MS]
   - baby: 0-30 days
   - toddler: 31-90 days
-  - teen:90-365 days
-  - adult: 366 - 730 
+  - teen:91-365 days
+  - adult: 366 - 1095 
+  - senior: >1095 
 
 ##### Activity
 
