@@ -131,14 +131,14 @@ export function repos_cohort_processed_BaseCohorts(repos){
         {"createRatioColumn":["stargazers_count","forks_count","ratio_stargazersToForks"]},
         {"createRatioColumn":["subscribers_count","commit_stats.total_committers","ratio_watchersToCommitters"]},
         //// sample or demo or example cohorts ////
-        {"createCohortStringListPossibleValues":["full_name", "cohort_Sample_fullName", ["sample","demo","example","tutorial"]]},
-        {"createCohortStringListPossibleValues":["description", "cohort_Sample_Description", ["sample","demo","example","tutorial"]]},
-        {"createCohortIfEitherColumnIsTrue":["cohort_Sample_fullName", "cohort_Sample_Description", "cohort_Sample"]},
+        {"createCohortStringListPossibleValues":["full_name", "cohort_sample_fullName", ["sample","demo","example","tutorial"]]},
+        {"createCohortStringListPossibleValues":["description", "cohort_sample_Description", ["sample","demo","example","tutorial"]]},
+        {"createCohortIfEitherColumnIsTrue":["cohort_sample_fullName", "cohort_sample_Description", "cohort_sample"]},
         //// committer community size cohorts ////
-        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committersNonZero", 0.2,100000]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers1-20", 0.2,20.5]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers20-100", 20.5,100.5]},
-        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers100plus", 100.5,10000000]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers_NonZero", 0.2,100000]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers_1-20", 0.2,20.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers_20-100", 20.5,100.5]},
+        {"createCohortNumericalCol":["commit_stats.total_committers", "cohort_committers_100plus", 100.5,10000000]},
         //// age cohorts ////
         {"createCohortNumericalCol":["age_in_days", "cohort_age_baby30d", 0,30]},
         {"createCohortNumericalCol":["age_in_days", "cohort_age_toddler30to90d", 30,90]},
@@ -148,6 +148,126 @@ export function repos_cohort_processed_BaseCohorts(repos){
         ////
     ])
 }
+
+export function get_list_of_cohort_columns(repos){
+    const cohortColumns = Object.keys(repos[0]).filter((col) => col.includes("cohort_"));
+    return cohortColumns;
+}
+
+export function cohort_column_state(cohortColumns) {
+    const state = {};
+    cohortColumns.forEach((column) => {
+        state[column] = "false";
+    });
+    return state;
+}
+
+
+export function button_cohort_filter(repos_cohort_processed, cohort_columns, cohort_columns_state, divId) {
+    const createButton = (columnName, text, backgroundColor = "#5362a1", textColor = "#ffffff") => {
+        const button = document.createElement("button");
+        button.className = "button-cta";
+        button.id = columnName;
+        // button.style.color = textColor;
+        button.innerText = text;
+        button.style.padding = "0.5rem"; // Add padding of 1rem on all sides
+        button.style.border = "0.3rem solid black"; // Add border of 1rem with solid black color
+        button.dataset.state = "true"; // Set the initial state of the button to true
+        button.addEventListener("click", () => {
+            console.log('button clicked')
+            // const selectedColumns = cohort_columns.slice(0, index + 1);
+            //     return selectedColumns.every((column) => repo[column]);
+            // });
+            button.dataset.state = button.dataset.state === "true" ? "false" : "true"; // Toggle the state
+            // button.dataset.state = currentState; // Set the button's state
+            // const columnName = button.innerText.toLowerCase();
+            const columnName = button.id;
+            cohort_columns_state[columnName] = button.dataset.state; 
+            if (button.dataset.state === "false") {
+                button.style.background = "gray"; // Change background color to gray
+            } else {
+                button.style.background = backgroundColor; // Reset background color
+            }
+        });
+        if (button.dataset.state === "false") {
+            button.style.background = "gray"; // Change background color to gray
+        } else {
+            button.style.background = backgroundColor; // Reset background color
+        }
+        return button;
+    }
+
+    const buttons = cohort_columns.map((column) => {
+        const buttonText = column.replace("cohort_", "");
+        return createButton(column, buttonText);
+    });
+
+    const divElement = document.getElementById(divId);
+    buttons.forEach((button) => {
+        divElement.appendChild(button);
+    });
+
+    // return cohort_columns_state;
+}
+
+// import {Tabulator} from "https://cdn.jsdelivr.net/npm/tabulator-tables/+esm";
+
+export function filter_repos_by_cohort(repos, cohort_columns_state) {
+    const selectedColumns = Object.keys(cohort_columns_state).filter((column) => cohort_columns_state[column] === 'true');
+    const filtered_repos = repos.filter((repo) => {
+        return selectedColumns.every((column) => repo[column] === true);
+    });
+    console.log("selectedColumns = ", selectedColumns, "filtered_repos = ", filtered_repos);
+    // var table = new Tabulator("#test-2", {
+    //     data:filtered_repos, //assign data to table
+    //     autoColumns:true,//create columns from data field names
+    //     columns:[{title:"full_name", field:"full_name", frozen:true}]
+    // });
+//    
+    const preElement = document.getElementById("test-2");
+    preElement.innerHTML = JSON.stringify(filtered_repos.length, null, 2);
+    if(filtered_repos.length < 10){
+        const preElement2 = document.getElementById("test-3");
+        preElement2.innerHTML = JSON.stringify(filtered_repos, null, 2);
+    }
+    else {
+        const preElement2 = document.getElementById("test-3");
+        preElement2.innerHTML = JSON.stringify("too long", null, 2);
+    }
+    
+}
+
+export function addFilterButton(repos, cohort_columns_state) {
+    const button = document.createElement("button");
+    button.innerText = "Filter Repos";
+    button.addEventListener("click", () => {
+        filter_repos_by_cohort(repos, cohort_columns_state);
+    });
+    const divElement = document.getElementById("button-container");
+    divElement.appendChild(button);
+}
+
+
+
+
+
+
+
+// NEED TO BE ABLE TO SELECT MULTIPLE COHORTS OF THE SAME TYPE WHICH IS HARD TO DO SO WITH JUST TRUE AND FALSE
+
+// HOW TO EFFECIENTLY SAY A or B or C of category 1 and D or E or F of category 2
+///// Does the row have true for one of these columns... and true for one of these columns.....
+////// Groups of cohorts are always "or" and "and" between groups of cohorts
+////// So instead of a list of columns...have them be a object of colummns based on cohort groups...
+////// cohort_text_sample, cohort_text_demo, etc. 
+////// cohort_age, cohort_committers, etc. groups in object of 
+////// {"cohort_age":{"cohort_age_baby30d":true, "cohort_age_toddler30to90d":true}, "cohort_committers":{"cohort_committers_20-100":true, "cohort_committers_100plus":true}}
+////// And for each top-level group... use OR....and betweeen use AND.....by
+////// filtering original repos dataset by each group using OR, then finding intersection
+////// Negative of this approach is you can only use AND and not OR between cohort groups...
+
+
+
 
 
 

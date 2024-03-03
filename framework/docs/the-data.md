@@ -111,13 +111,14 @@ function filterData(data, columnName, trueOrFalse) {
   return data.filter((item) => item[columnName] === trueOrFalse);
 }
 
-const reposWithYearCommitData = filterData(repos_cohort_processed,"cohort_committersNonZero", true)
+const reposWithYearCommitData = filterData(repos_cohort_processed,"cohort_committers__NonZero", true)
 
-const reposWithMoreThan100Committers = filterData(repos_cohort_processed,"cohort_committers100plus", true)
+const reposWithMoreThan100Committers = filterData(repos_cohort_processed,"cohort_committers_100plus", true)
 
-const reposWith20to100Committers = filterData(repos_cohort_processed,"cohort_committers20-100", true)
+const reposWith20to100Committers = filterData(repos_cohort_processed,"cohort_committers_20-100", true)
 
-const reposSamples = filterData(repos_cohort_processed,"cohort_Sample", true)
+const reposSamples = filterData(repos_cohort_processed,"cohort_sample", true)
+
 
 ```
 
@@ -257,7 +258,6 @@ var table = new Tabulator("#table-veryLargeCommunity", {
     data:reposWithMoreThan100Committers, //assign data to table
     autoColumns:true, //create columns from data field names
     columns:[{title:"full_name", field:"full_name", frozen:true}]
-    
 });
 
 ```
@@ -302,3 +302,54 @@ display(
 ```
 
 
+### TEST
+
+<div id="test-1" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+
+<pre id="test-2"></pre>
+
+<div id="button-container"></div>
+
+```js
+
+import {button_cohort_filter,get_list_of_cohort_columns, cohort_column_state, filter_repos_by_cohort} from "./components/cohorts.js"
+
+import {addFilterButton} from "./components/cohorts.js"
+
+var cohort_columns = get_list_of_cohort_columns(repos_cohort_processed)
+
+var cohort_columns_state = cohort_column_state(cohort_columns)
+
+display(cohort_columns)
+
+button_cohort_filter(repos_cohort_processed, cohort_columns, cohort_columns_state, "test-1")
+
+addFilterButton(repos_cohort_processed, cohort_columns_state)
+
+display(repos_cohort_processed)
+
+display(cohort_columns_state)
+
+display(filter_repos_by_cohort(repos_cohort_processed, cohort_columns_state))
+
+
+
+```
+
+<pre id="test-3"></pre>
+<!-- 
+<div id="table-test"></div>
+
+
+```js
+
+import {Tabulator} from "https://cdn.jsdelivr.net/npm/tabulator-tables/+esm";
+
+var table = new Tabulator("#table-test", {
+    data:reposWithMoreThan100Committers, //assign data to table
+    autoColumns:true, //create columns from data field names
+    columns:[{title:"full_name", field:"full_name", frozen:true}]
+    
+});
+
+``` -->
