@@ -154,6 +154,8 @@ export function get_list_of_cohort_columns(repos){
     return cohortColumns;
 }
 
+
+
 export function cohort_column_state(cohortColumns) {
     const state = {};
     cohortColumns.forEach((column) => {
@@ -162,50 +164,65 @@ export function cohort_column_state(cohortColumns) {
     return state;
 }
 
+export function get_object_of_cohort_columns(repos){
+    const cohortColumns = Object.keys(repos[0]).filter((col) => col.includes("cohort_"));
+    const columnLists = cohortColumns.map((col) => col.split("_"));
+    const columnObject = {};
+    for (const columnList of columnLists) {
+        const key = columnList[1];
+        if (columnObject[key]) {
+            columnObject[key].push(columnList.join("_"));
+        } else {
+            columnObject[key] = [columnList.join("_")];
+        }
+    }
+    return columnObject;
+}
 
-export function button_cohort_filter(repos_cohort_processed, cohort_columns, cohort_columns_state, divId) {
+export function button_cohort_filter(repos_cohort_processed, cohort_columns_object, cohort_columns_state, divId) {
     const createButton = (columnName, text, backgroundColor = "#5362a1", textColor = "#ffffff") => {
         const button = document.createElement("button");
         button.className = "button-cta";
         button.id = columnName;
-        // button.style.color = textColor;
         button.innerText = text;
-        button.style.padding = "0.5rem"; // Add padding of 1rem on all sides
-        button.style.border = "0.3rem solid black"; // Add border of 1rem with solid black color
-        button.dataset.state = "true"; // Set the initial state of the button to true
+        button.style.padding = "0.5rem";
+        button.style.border = "0.3rem solid black";
+        button.dataset.state = "false";
         button.addEventListener("click", () => {
-            console.log('button clicked')
-            // const selectedColumns = cohort_columns.slice(0, index + 1);
-            //     return selectedColumns.every((column) => repo[column]);
-            // });
-            button.dataset.state = button.dataset.state === "true" ? "false" : "true"; // Toggle the state
-            // button.dataset.state = currentState; // Set the button's state
-            // const columnName = button.innerText.toLowerCase();
+            button.dataset.state = button.dataset.state === "true" ? "false" : "true";
             const columnName = button.id;
             cohort_columns_state[columnName] = button.dataset.state; 
             if (button.dataset.state === "false") {
-                button.style.background = "gray"; // Change background color to gray
+                button.style.background = "gray";
             } else {
-                button.style.background = backgroundColor; // Reset background color
+                button.style.background = backgroundColor;
             }
         });
         if (button.dataset.state === "false") {
-            button.style.background = "gray"; // Change background color to gray
+            button.style.background = "gray";
         } else {
-            button.style.background = backgroundColor; // Reset background color
+            button.style.background = backgroundColor;
         }
         return button;
     }
 
-    const buttons = cohort_columns.map((column) => {
-        const buttonText = column.replace("cohort_", "");
-        return createButton(column, buttonText);
-    });
+    const createRow = (columns) => {
+        const row = document.createElement("div");
+        row.className = "button-row";
+        columns.forEach((column) => {
+            const buttonText = column.replace("cohort_", "");
+            const button = createButton(column, buttonText);
+            row.appendChild(button);
+        });
+        return row;
+    }
 
     const divElement = document.getElementById(divId);
-    buttons.forEach((button) => {
-        divElement.appendChild(button);
-    });
+    for (const key in cohort_columns_object) {
+        const columns = cohort_columns_object[key];
+        const row = createRow(columns);
+        divElement.appendChild(row);
+    }
 
     // return cohort_columns_state;
 }
@@ -218,12 +235,7 @@ export function filter_repos_by_cohort(repos, cohort_columns_state) {
         return selectedColumns.every((column) => repo[column] === true);
     });
     console.log("selectedColumns = ", selectedColumns, "filtered_repos = ", filtered_repos);
-    // var table = new Tabulator("#test-2", {
-    //     data:filtered_repos, //assign data to table
-    //     autoColumns:true,//create columns from data field names
-    //     columns:[{title:"full_name", field:"full_name", frozen:true}]
-    // });
-//    
+
     const preElement = document.getElementById("test-2");
     preElement.innerHTML = JSON.stringify(filtered_repos.length, null, 2);
     if(filtered_repos.length < 10){
@@ -235,7 +247,20 @@ export function filter_repos_by_cohort(repos, cohort_columns_state) {
         preElement2.innerHTML = JSON.stringify("too long", null, 2);
     }
     
+    // const filteredReposTable = document.getElementById("filtered_repos_table_1");
+    // // filteredReposTable.innerHTML = `${Inputs.table(filtered_repos , {rows: 16})}`;
+    // filteredReposTable.innerHTML = Inputs.table(filtered_repos, {rows: 16});
+
+
+    // n = Inputs.table(filtered_repos , {rows: 16})
+    
+    return filtered_repos;
+    
 }
+
+// export function updateFilteredReposTable(){
+//     return Inputs.table(filtered_repos , {rows: 16})
+// }
 
 export function addFilterButton(repos, cohort_columns_state) {
     const button = document.createElement("button");
