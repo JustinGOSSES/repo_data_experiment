@@ -304,7 +304,7 @@ display(
 
 ### TEST
 
-<div id="test-1" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+<!-- <div id="test-1" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
 
 <pre id="test-2"></pre>
 
@@ -357,43 +357,43 @@ function getClickedObjects(inputCheckboxObject) {
   }
   console.log("generatorsObject = ",generatorsObject)
   console.log("typeof generatorsObject", typeof(generatorsObject) )
-  return generatorsObject;
-}
-
+  return generatorsObject; -->
+<!-- } -->
+<!-- 
 // const checkboxes_object_clicked =  getClickedObjects(checkboxesObject2 )
 
 
-const checkboxes_object_clicked = await (async function() {
-  const obj = {};
-  for (const key in checkboxesObject2) {
-    obj[key] = await Generators.input(checkboxesObject2[key]).next().value;
-  }
-  return obj;
-})();
+// const checkboxes_object_clicked = await (async function() {
+//   const obj = {};
+//   for (const key in checkboxesObject2) {
+//     obj[key] = await Generators.input(checkboxesObject2[key]).next().value;
+//   }
+//   return obj;
+// })();
 
 
-const checkboxes_object_clicked_age  = Generators.input(checkboxesObject2.age);
-const checkboxes_object_clicked_committers  = Generators.input(checkboxesObject2.committers);
-const checkboxes_object_clicked_sample  = Generators.input(checkboxesObject2.sample);
+// const checkboxes_object_clicked_age  = Generators.input(checkboxesObject2.age);
+// const checkboxes_object_clicked_committers  = Generators.input(checkboxesObject2.committers);
+// const checkboxes_object_clicked_sample  = Generators.input(checkboxesObject2.sample);
 
-const checkboxes_object = {
-  "age":Generators.input(checkboxesObject2.age) ,
-  "committers":checkboxes_object_clicked_committers,
-  "sample":checkboxes_object_clicked_sample
-}
+// const checkboxes_object = {
+//   "age":Generators.input(checkboxesObject2.age) ,
+//   "committers":checkboxes_object_clicked_committers,
+//   "sample":checkboxes_object_clicked_sample
+// } -->
 
-
+<!-- 
 //
 
-const checkout = view(
-  Inputs.checkbox(["B", "A", "Z", "Z", "⚠️F", "D", "G", "G", "G", "⚠️Q"], {
-    disabled: ["⚠️F", "⚠️Q"],
-    sort: true,
-    unique: true,
-    value: "B",
-    label: "Choose categories:"
-  })
-);
+// const checkout = view(
+//   Inputs.checkbox(["B", "A", "Z", "Z", "⚠️F", "D", "G", "G", "G", "⚠️Q"], {
+//     disabled: ["⚠️F", "⚠️Q"],
+//     sort: true,
+//     unique: true,
+//     value: "B",
+//     label: "Choose categories:"
+//   })
+// );
 
 // const checkboxes_object_clicked = function(){
 //    const generatorsObject = {};
@@ -406,51 +406,51 @@ const checkout = view(
 //   return generatorsObject;
 // }
 
-const checklist_age = view(
-  Inputs.checkbox(cohort_columns_object.age, {
-    disabled: ["⚠️F", "⚠️Q"],
-    sort: true,
-    unique: true,
-    value: "cohort_age_seniorMore1095d",
-    label: "Choose one or more from this category:"
-  })
-);
+// const checklist_age = view(
+//   Inputs.checkbox(cohort_columns_object.age, {
+//     disabled: ["⚠️F", "⚠️Q"],
+//     sort: true,
+//     unique: true,
+//     value: "cohort_age_seniorMore1095d",
+//     label: "Choose one or more from this category:"
+//   })
+// ); -->
+<!-- 
+// function makeCheckListForEachCohortGroup(cohort_columns_object){
+//   const checklists = {};
+//   for (var key in cohort_columns_object) {
+//     checklists[key] = view(
+//       Inputs.checkbox(cohort_columns_object.key, {
+//         disabled: ["⚠️F", "⚠️Q"],
+//         sort: true,
+//         unique: true,
+//         value: cohort_columns_object[key][0],
+//         label: "Choose one or more from this category:"
+//       })
+//     );
+//   }
+//   return checklists;
+// }
 
-function makeCheckListForEachCohortGroup(cohort_columns_object){
-  const checklists = {};
-  for (var key in cohort_columns_object) {
-    checklists[key] = view(
-      Inputs.checkbox(cohort_columns_object.key, {
-        disabled: ["⚠️F", "⚠️Q"],
-        sort: true,
-        unique: true,
-        value: cohort_columns_object[key][0],
-        label: "Choose one or more from this category:"
-      })
-    );
-  }
-  return checklists;
-}
-
-var checklists = makeCheckListForEachCohortGroup(cohort_columns_object)
+// var checklists = makeCheckListForEachCohortGroup(cohort_columns_object)
 
 
-const checkboxes_list = Inputs.checkbox(cohort_columns)
-const checkboxes_list_clicked = Generators.input(checkboxes_list);
+// const checkboxes_list = Inputs.checkbox(cohort_columns)
+// const checkboxes_list_clicked = Generators.input(checkboxes_list);
 
-button_cohort_filter(repos_cohort_processed, cohort_columns_object, cohort_columns_state, "test-1")
+// button_cohort_filter(repos_cohort_processed, cohort_columns_object, cohort_columns_state, "test-1")
 
-addFilterButton(repos_cohort_processed, cohort_columns_state)
+// addFilterButton(repos_cohort_processed, cohort_columns_state)
 
-display(repos_cohort_processed)
+// display(repos_cohort_processed)
 
-display(cohort_columns_state)
+// display(cohort_columns_state)
 
-// const  = view(html`<input type=range step=1 min=1 max=15>`);
 
-var filtered_repos = filter_repos_by_cohort(repos_cohort_processed, cohort_columns_state)
 
-display(filtered_repos)
+// var filtered_repos = filter_repos_by_cohort(repos_cohort_processed, cohort_columns_state)
+
+// display(filtered_repos)
 
 // const ageCheckboxes = checkboxes.filter(checkbox => checkbox.label === "age");
 
@@ -478,42 +478,29 @@ display(filtered_repos)
 // }
 
 // // Use the createTable function to create the table and assign it to a new Observable cell
-// viewof table = createTable();
+// viewof table = createTable(); -->
 
-```
+<!-- ``` -->
 
-
+<!-- 
 <p>PRE with id test-3</p>
 <pre id="test-3"></pre>
 
 <p>cohorts filtered table</p>
 <div id="table-cohorts_filter"></div>
 
-```js
 
-// import {Tabulator} from "https://cdn.jsdelivr.net/npm/tabulator-tables/+esm";
-
-// var table = new Tabulator("#table-test", {
-//     data:filter_repos_by_cohort(repos_cohort_processed, cohort_columns_state), //assign data to table
-//     autoColumns:true, //create columns from data field names
-//     columns:[{title:"full_name", field:"full_name", frozen:true}]
-    
-// });
-
-```
-
-<p>Inputs.table</p>
+<!-- <p>Inputs.table</p> -->
 <!-- <div id="filtered_repos_table_1_holder" class="card" style="padding: 0;" data-repos=`${filtered_repos}`>data holder</div>
 <div id="filtered_repos_table_1" class="card" style="padding: 0;">${Inputs.table(document.getElementById('filtered_repos_table_1_holder').getAttribute('data-repos'), {rows: 16})}</div> -->
 
-<div id="filtered_repos_table_1" class="card" style="padding: 0;" data-repos=`${filtered_repos}`>${Inputs.table(document.getElementById('filtered_repos_table_1').getAttribute('data-repos'), {rows: 16})}</div>
+<!-- <div id="filtered_repos_table_1" class="card" style="padding: 0;" data-repos=`${filtered_repos}`>${Inputs.table(document.getElementById('filtered_repos_table_1').getAttribute('data-repos'), {rows: 16})}</div> -->
 
 
 --------
-<!-- <div style="display: flex; align-items: center;">${hoursAgoInput}<div style="padding-left: 0.5rem;">now</div>
-</div> -->
 
-<div id="flavor" style="">${flavor}</div>
+
+<!-- <div id="flavor" style="">${flavor}</div>
 <div id="flavor" style="">${flavor_selected}</div>
 
 -----
@@ -529,7 +516,6 @@ display(filtered_repos)
 --
 <p>${checkboxes_object_clicked_age  }</p>
 <p>${checkboxes_object_clicked_committers  }</p>
-<!-- <p>${checkboxes_object_clicked}</p> -->
 ------- 3
 <p>${checkboxes_object.age}</p>
 <p>${checkboxes_object.committers}</p>
@@ -539,18 +525,18 @@ display(filtered_repos)
 <div id="checkboxes_list" style="">${checkboxes_list}</div>
 
 <p>${checkboxes_list_clicked}</p>
-
+ --> 
 
 
 
 <!-- ${JSON.stringify(filtered_repos)} -->
 
 
-
-This page reenvisions parts of the US Energy Information Administration’s Hourly Electric Grid Monitor. Visit About the EIA-930 data to learn more about data collection and quality, the US electric grid, and balancing authorities responsible for nationwide electricity interchange.
+<!-- 
+This page reenvisions parts of the US Energy Information Administration’s Hourly Electric Grid Monitor. Visit About the EIA-930 data to learn more about data collection and quality, the US electric grid, and balancing authorities responsible for nationwide electricity interchange. -->
 
 <!-- % <p>Inputs.table</p> <div id="filtered_repos_table_1" class="card" style="padding: 0;"> ${Inputs.table(filtered_repos , {rows: 16})} </div>   -->
 
+<!-- ------
 ------
-------
-<p>CHECKOUT age = ${checklists.age }</p>
+<p>CHECKOUT age = ${checklists.age }</p> -->
