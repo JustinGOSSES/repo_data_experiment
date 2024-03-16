@@ -322,7 +322,7 @@ const table_cohortFiltered =
 <h2>Repositories that are True for Selected Cohorts:</h2>
 <div id="filtered_repos_table_2" class="card" style="padding: 0;">${table_cohortFiltered} </div> 
 
-### Bar chart displaying count of selected variable for selected cohorts
+### Bar chart that displays repositories filtered by cohort checkboxes sorted by a selected variable
 
 ```js
 
@@ -406,3 +406,10 @@ display(
   ]
 })
 )
+```
+
+## Bar charts of cohort groups
+
+```js
+
+```
