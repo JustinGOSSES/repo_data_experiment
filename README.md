@@ -254,3 +254,7 @@ so I start up a local server like `http-server` and then
 navigate to `http://127.0.0.1:8080/` in a browser. A python option that does the same thing 
 is [http.server](https://docs.python.org/3/library/http.server.html)
 The GitHub pages URL is [https://justingosses.github.io/repo_data_experiment/](https://justingosses.github.io/repo_data_experiment/)
+
+## Explore this dataset on Observable.hq with SQL
+
+https://observablehq.com/@justingosses/analyzing-repositories-by-their-metadata-with-sql
