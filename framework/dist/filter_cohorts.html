@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Filter by Cohort | framework_code_repos</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.14/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/binary-search-bounds@2.0.5/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-axis@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-brush@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-chord@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-color@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-contour@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dsv@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-ease@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-fetch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-format@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-interpolate@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-path@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-polygon@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-random@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-selection@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-shape@3.2.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time-format@4.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-timer@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-transition@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-zoom@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/delaunator@5.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/htl@0.3.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/internmap@2.0.3/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/interval-tree-1d@1.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/isoformat@0.2.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/robust-predicates@3.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/tabulator-tables/+esm">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+
+define({id: "17f19f24", inputs: ["FileAttachment"], outputs: ["Tabulator","repos"], files: [{"name":"./data/all_orgs_merged_20240120.csv","mimeType":"text/csv","path":"./_file/data/all_orgs_merged_20240120.csv"}], body: async (FileAttachment) => {
+const {default: Tabulator} = await import("https://cdn.jsdelivr.net/npm/tabulator-tables/+esm");
+// IMPORT LIBRARIES & DATA
+
+
+
+// IMPORT DATA 
+const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+
+// display(repos)
+
+return {Tabulator,repos};
+}});
+
+define({id: "187024fe", inputs: ["Plot","d3","repos"], outputs: ["color","colorLanguage"], body: (Plot,d3,repos) => {
+//  Data utilities for plotting
+const color = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.owner).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+
+const colorLanguage = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.language).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+return {color,colorLanguage};
+}});
+
+define({id: "9771bf73", inputs: ["repos"], outputs: ["createCohortColumns","repos_cohort_processed_BaseCohorts","repos_cohort_processed","filterData","reposWithYearCommitData","reposWithMoreThan100Committers","reposWith20to100Committers","reposSamples"], body: async (repos) => {
+const [{createCohortColumns}, {repos_cohort_processed_BaseCohorts}] = await Promise.all([import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9"), import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9")]);
+// CREATING COHORTS 
+
+
+
+const repos_cohort_processed = repos_cohort_processed_BaseCohorts(repos)
+
+
+// FILTERED DOWN DATA
+
+function filterData(data, columnName, trueOrFalse) {
+  return data.filter((item) => item[columnName] === trueOrFalse);
+}
+
+const reposWithYearCommitData = filterData(repos_cohort_processed,"cohort_committers__NonZero", true)
+
+const reposWithMoreThan100Committers = filterData(repos_cohort_processed,"cohort_committers_100plus", true)
+
+const reposWith20to100Committers = filterData(repos_cohort_processed,"cohort_committers_20-100", true)
+
+const reposSamples = filterData(repos_cohort_processed,"cohort_sample", true)
+
+
+return {createCohortColumns,repos_cohort_processed_BaseCohorts,repos_cohort_processed,filterData,reposWithYearCommitData,reposWithMoreThan100Committers,reposWith20to100Committers,reposSamples};
+}});
+
+define({id: "8bfa481b", inputs: ["display","repos_cohort_processed","Inputs"], outputs: ["table_all2"], body: (display,repos_cohort_processed,Inputs) => {
+display(repos_cohort_processed)
+
+// const table_all = view(
+//   Inputs.table(repos_cohort_processed, {
+//     disabled: ["⚠️F", "⚠️Q"],
+//     sort: true,
+//     unique: true,
+//     value: "B",
+//     label: "Choose categories:"
+//   })
+// );
+
+const table_all2 = 
+  Inputs.table(repos_cohort_processed, {
+   rows:16
+  })
+
+return {table_all2};
+}});
+
+define({id: "f7906340", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "nasa").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "b000e0a0", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "CMSgov").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "d635d379", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "NationalSecurityAgency").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "3629f4c9", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "airbnb").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "9da497f2", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "home-assistant").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "42333cda", inline: true, inputs: ["repos_cohort_processed","display"], body: async (repos_cohort_processed,display) => {
+display(await(
+repos_cohort_processed.filter((d) => d.owner === "houstondatavis").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "f5537129", inline: true, inputs: ["table_all2","display"], body: async (table_all2,display) => {
+display(await(
+table_all2
+))
+}});
+
+define({id: "5eed63f4", inputs: ["repos_cohort_processed","display","Inputs","Generators"], outputs: ["button_cohort_filter","get_list_of_cohort_columns","cohort_column_state","filter_repos_by_cohort","addFilterButton","get_object_of_cohort_columns","cohort_columns","cohort_columns_state","cohort_columns_object","checkboxesObject2","checkboxes_object_clicked_age","checkboxes_object_clicked_committers","checkboxes_object_clicked_sample"], body: async (repos_cohort_processed,display,Inputs,Generators) => {
+const [{button_cohort_filter, get_list_of_cohort_columns, cohort_column_state, filter_repos_by_cohort}, {addFilterButton, get_object_of_cohort_columns}] = await Promise.all([import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9"), import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9")]);
+
+
+var cohort_columns = get_list_of_cohort_columns(repos_cohort_processed)
+
+var cohort_columns_state = cohort_column_state(cohort_columns)
+
+var cohort_columns_object = get_object_of_cohort_columns(repos_cohort_processed)
+
+display(cohort_columns)
+
+display(cohort_columns_object)
+
+const checkboxesObject2 =  Object.keys(cohort_columns_object).reduce((obj, key) => {
+  obj[key] = Inputs.checkbox(cohort_columns_object[key],{value:["cohort_sample"]});
+  return obj;
+}, {});
+
+
+const checkboxes_object_clicked_age  = Generators.input(checkboxesObject2.age);
+const checkboxes_object_clicked_committers  = Generators.input(checkboxesObject2.committers);
+const checkboxes_object_clicked_sample  = Generators.input(checkboxesObject2.sample);
+
+
+return {button_cohort_filter,get_list_of_cohort_columns,cohort_column_state,filter_repos_by_cohort,addFilterButton,get_object_of_cohort_columns,cohort_columns,cohort_columns_state,cohort_columns_object,checkboxesObject2,checkboxes_object_clicked_age,checkboxes_object_clicked_committers,checkboxes_object_clicked_sample};
+}});
+
+define({id: "a16d57c8", inline: true, inputs: ["checkboxesObject2","display"], body: async (checkboxesObject2,display) => {
+display(await(
+checkboxesObject2.sample
+))
+}});
+
+define({id: "2cacfe24", inline: true, inputs: ["checkboxesObject2","display"], body: async (checkboxesObject2,display) => {
+display(await(
+checkboxesObject2.age
+))
+}});
+
+define({id: "ce2d2b26", inline: true, inputs: ["checkboxesObject2","display"], body: async (checkboxesObject2,display) => {
+display(await(
+checkboxesObject2.committers
+))
+}});
+
+define({id: "839383df", inputs: ["checkboxes_object_clicked_age","checkboxes_object_clicked_committers","checkboxes_object_clicked_sample","repos_cohort_processed","Inputs"], outputs: ["addUnorderedListtoDivID","filterBasedOnCohortGroup","cohortFilteredData","table_cohortFiltered"], body: (checkboxes_object_clicked_age,checkboxes_object_clicked_committers,checkboxes_object_clicked_sample,repos_cohort_processed,Inputs) => {
+function addUnorderedListtoDivID(arrayOfCheckedItems, divID){
+  const divElement = document.getElementById(divID);
+  const ulElement = document.createElement("ul");
+  
+  // Clear the ul element first
+  divElement.innerHTML = '';
+  
+  if (arrayOfCheckedItems.length === 0) {
+    const liElement = document.createElement("li");
+    liElement.textContent = "None selected";
+    ulElement.appendChild(liElement);
+  } else {
+    arrayOfCheckedItems.forEach(item => {
+      const liElement = document.createElement("li");
+      liElement.textContent = item;
+      ulElement.appendChild(liElement);
+    });
+  }
+  
+  divElement.appendChild(ulElement);
+}
+
+console.log("checkedCohort_sample type = ",typeof(checkboxes_object_clicked_age))
+console.log("checkedCohort_sample = ",checkboxes_object_clicked_age)
+
+// addUnorderedListtoDivID(checkboxes_object_clicked_age , "checkedCohort_sample")
+// addUnorderedListtoDivID(checkboxes_object_clicked_committers, "checkedCohort_age")
+// addUnorderedListtoDivID(checkboxes_object_clicked_sample , "checkedCohort_committers")
+
+
+function filterBasedOnCohortGroup(repos_cohort_processed, arrayOfColumnNameLists=[checkboxes_object_clicked_age, checkboxes_object_clicked_committers, checkboxes_object_clicked_sample]) {
+  // Check if arrayOfColumnNameLists is empty or only contains empty lists
+  if (arrayOfColumnNameLists.length === 0 || arrayOfColumnNameLists.every(list => list.length === 0)) {
+    return [];
+  }
+
+  let filteredRows = [];
+
+  // Find rows where at least one column in each list is true
+  for (const columnNameList of arrayOfColumnNameLists) {
+    if (columnNameList.length > 0) {
+      const filteredRowsForList = repos_cohort_processed.filter(row => {
+        return columnNameList.some(columnName => row[columnName]);
+      });
+      filteredRows.push(filteredRowsForList);
+    }
+  }
+
+  // Find the intersection of the filtered rows
+  const intersection = filteredRows.reduce((acc, curr) => {
+    return acc.filter(row => curr.includes(row));
+  });
+
+  return intersection;
+}
+
+const cohortFilteredData = filterBasedOnCohortGroup(repos_cohort_processed, [checkboxes_object_clicked_age, checkboxes_object_clicked_committers, checkboxes_object_clicked_sample])
+
+// display(cohortFilteredData)
+
+
+const table_cohortFiltered = 
+  Inputs.table(cohortFilteredData, {
+   row:16
+  } )
+
+return {addUnorderedListtoDivID,filterBasedOnCohortGroup,cohortFilteredData,table_cohortFiltered};
+}});
+
+define({id: "410f0b99", inline: true, inputs: ["cohortFilteredData","display"], body: async (cohortFilteredData,display) => {
+display(await(
+cohortFilteredData.length
+))
+}});
+
+define({id: "ed5ad8b1", inline: true, inputs: ["table_cohortFiltered","display"], body: async (table_cohortFiltered,display) => {
+display(await(
+table_cohortFiltered
+))
+}});
+
+define({id: "d7dcf1d9", inputs: ["cohortFilteredData","Inputs","display","Generators"], outputs: ["findColsThatAreNumbers","barChartVariable","barChartVariable_selected"], body: (cohortFilteredData,Inputs,display,Generators) => {
+function findColsThatAreNumbers(tableOfData) {
+  let listOfColumnStrings = [];
+
+  // Get the keys of the first row
+  const keys = Object.keys(tableOfData[0]);
+
+  // Iterate over each key
+  for (const key of keys) {
+    let isNumber = false;
+    // Check if the value of the key is a number in each row
+    for (const row of tableOfData) {
+      var value = row[key];
+      try { 
+        if (!isNaN(value)) {
+          value = parseInt(value);
+        }
+        if (typeof value === 'number' && (Number.isInteger(value) || Number.isFinite(value))) {
+          isNumber = true;
+          break;
+        }
+      // Skip if the value is blank or not a number
+      if (value === "" || isNaN(value)) {
+        isNumber = false;
+      }
+        }
+       catch (error) {
+        // Handle any errors that occur during the conversion
+        // Do nothing and continue to the next column
+      }
+    }
+    // If all values are numbers, add the key to the list
+    if (isNumber) {
+      listOfColumnStrings.push(key);
+    }
+  }
+  return listOfColumnStrings;
+}
+console.log("findColsThatAreNumbers(cohortFilteredData) = ",findColsThatAreNumbers(cohortFilteredData))
+
+var barChartVariable = Inputs.select([null].concat(findColsThatAreNumbers(cohortFilteredData)), {label: "variable", value:"stargazers_count"})
+
+display(barChartVariable)
+
+const barChartVariable_selected  = Generators.input(barChartVariable)
+
+return {findColsThatAreNumbers,barChartVariable,barChartVariable_selected};
+}});
+
+define({id: "634ba20e", inputs: ["display","Plot","cohortFilteredData","barChartVariable_selected"], body: (display,Plot,cohortFilteredData,barChartVariable_selected) => {
+display(
+  Plot.plot({
+  marginLeft: 200,
+  marginRight:50,
+  x: { axis: null },
+  y: { label: null },
+  color: {legend: true},
+  marks: [
+    Plot.barX(cohortFilteredData, {
+      // x: "commit_stats.total_committers",
+      x: d => `${d[barChartVariable_selected]}`,
+      y: "full_name",
+      fill: "owner",
+      channels: {topics: "topics", stargazers_count: "stargazers_count", commit_stats__total_commits: "commit_stats.total_commits", commit_stats__mean_commits: "commit_stats.mean_commits", commit_stats__dds: "commit_stats.dds"},
+      tip: true,
+      sort: { y: "x", reverse: true, }
+    }),
+
+    Plot.text(cohortFilteredData, {
+      text: d => `${d[barChartVariable_selected]}`,
+      //text: d => `${d.value}`,
+      y: "full_name",
+      x: barChartVariable_selected,
+       sort: { y: "x", reverse: true, },
+      textAnchor: "start",
+      dx: 1,
+      fill: "black"
+    })
+  ]
+})
+)
+}});
+
+define({id: "01ba4719", body: () => {
+
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">framework_code_repos</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./code-repositories">Over time</a></li>
+    <li class="observablehq-link"><a href="./community">Community Size</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./filter_cohorts">Filter by Cohort</a></li>
+    <li class="observablehq-link"><a href="./filter_cohorts_SQL">Filter by Cohort with SQL</a></li>
+    <li class="observablehq-link"><a href="./oldKeep">Data</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="#observablehq-main h1:not(:first-of-type), #observablehq-main h2:not(h1 + h2):has(a.observablehq-header-anchor)">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#number-of-code-repositories">Number of code repositories</a></li>
+<li class="observablehq-secondary-link"><a href="#filtered-by-cohorts%3A">Filtered by Cohorts:</a></li>
+<li class="observablehq-secondary-link"><a href="#select-one-or-more-within-each-repository-cohort-group">Select one or more within each Repository Cohort Group</a></li>
+<li class="observablehq-secondary-link"><a href="#bar-charts-of-cohort-groups">Bar charts of cohort groups</a></li>
+</ol>
+</nav>
+</aside>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<head>
+<link href="https://unpkg.com/tabulator-tables@5.6.1/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.6.1/dist/js/tabulator.min.js"></script>
+</head>
+<style>
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans-serif);
+  margin: 4rem 0 8rem;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 2rem 0;
+  max-width: none;
+  font-size: 14vw;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h2 {
+  margin: 0;
+  max-width: 34em;
+  font-size: 20px;
+  font-style: initial;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--theme-foreground-muted);
+}
+
+@media (min-width: 640px) {
+  .hero h1 {
+    font-size: 90px;
+  }
+}
+
+</style>
+<h1 id="filter-by-cohort" tabindex="-1"><a class="observablehq-header-anchor" href="#filter-by-cohort">Filter by Cohort</a></h1>
+<h2 id="visualizing-code-repositories-metadata" tabindex="-1"><a class="observablehq-header-anchor" href="#visualizing-code-repositories-metadata">Visualizing Code Repositories Metadata</a></h2>
+<p><a href="https://github.com/JustinGOSSES/repo_data_experiment">The code repository that builds this page</a></p>
+<h3 id="all-github-organizations-data-gathered-in-the-flattened-csv" tabindex="-1"><a class="observablehq-header-anchor" href="#all-github-organizations-data-gathered-in-the-flattened-csv">All GitHub Organizations Data Gathered in the Flattened CSV</a></h3>
+<pre><code>const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+</code></pre>
+<div id="cell-17f19f24" class="observablehq observablehq--block"></div>
+<div id="cell-187024fe" class="observablehq observablehq--block"></div>
+<div id="cell-9771bf73" class="observablehq observablehq--block"></div>
+<h5 id="processed-data-with-cohorts-calculated" tabindex="-1"><a class="observablehq-header-anchor" href="#processed-data-with-cohorts-calculated">Processed data with cohorts calculated</a></h5>
+<div id="cell-8bfa481b" class="observablehq observablehq--block"></div>
+<hr>
+<h2 id="number-of-code-repositories" tabindex="-1"><a class="observablehq-header-anchor" href="#number-of-code-repositories">Number of code repositories</a></h2>
+<p>Important to note that this data comes from Ecosyste.ms API. Ecosyste.ms
+doesn't collect data on all repositories but rather the subset with engagement,
+that are source for a package, etc. The total number of repositories actually
+in each GitHub organization is larger than what is captured here.</p>
+<div class="grid grid-cols-3">
+  <div class="card">
+    <h2>NASA (US government agency)</h2>
+    <span class="big"><span id="cell-f7906340" class="observablehq--loading"></span></span>
+  </div>
+   <div class="card">
+    <a href="https://github.com/cmsgov"><h2>Centers for Medicare &amp; Medicaid Services (US government agency)</h2></a>
+    <span class="big"><span id="cell-b000e0a0" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>National Security Agency (US government agency)</h2>
+    <span class="big"><span id="cell-d635d379" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>AirBnB (tech company known for creating open source tools)</h2>
+    <span class="big"><span id="cell-3629f4c9" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>home-assistant (one of the most forked and contributed to open source projects)</h2>
+    <span class="big"><span id="cell-9da497f2" class="observablehq--loading"></span></span>
+  </div>
+    <div class="card">
+    <h2>houstondatavis (local meetup for data visualization)</h2>
+    <span class="big"><span id="cell-42333cda" class="observablehq--loading"></span></span>
+  </div>
+</div>
+<hr>
+<span><h2>Unfiltered Table of All Repositories:</h2>
+<div id="filtered_repos_table_1" class="card" style="padding: 0;"><span id="cell-f5537129" class="observablehq--loading"></span> </div> 
+</span><hr>
+<h2 id="filtered-by-cohorts%3A" tabindex="-1"><a class="observablehq-header-anchor" href="#filtered-by-cohorts%3A">Filtered by Cohorts:</a></h2>
+<div id="cell-5eed63f4" class="observablehq observablehq--block"></div>
+<h2 id="select-one-or-more-within-each-repository-cohort-group" tabindex="-1"><a class="observablehq-header-anchor" href="#select-one-or-more-within-each-repository-cohort-group">Select one or more within each Repository Cohort Group</a></h2>
+<p>Repositories kept when they meet 1 or more selected cohorts within each cohort group</p>
+<pre>FUTURE WORK: BUILD DEFINITIONS SHOW ON HOVER</pre>
+<span><h3>Sample</h3>
+<div id="checkboxes"><span id="cell-a16d57c8" class="observablehq--loading"></span></div>
+<br>
+</span><span><h3>Age</h3>
+<div id="checkboxes"><span id="cell-2cacfe24" class="observablehq--loading"></span></div>
+<br>
+</span><span><h3>Committers</h3>
+<div id="checkboxes"><span id="cell-ce2d2b26" class="observablehq--loading"></span></div>
+<br>
+<br>
+</span><span><!-- <h4>Selected Sample Cohorts</h4>
+<div id="checkedCohort_sample"></div>
+
+
+<h4>Selected Age Cohorts</h4>
+<div id="checkedCohort_age"></div>
+
+<h4>Selected Committers Cohorts</h4>
+<div id="checkedCohort_committers"></div> -->
+</span><div id="cell-839383df" class="observablehq observablehq--block"></div>
+<p>Number of repositories after filtering by cohort checkboxes is: <span id="cell-410f0b99" class="observablehq--loading"></span></p>
+<span><h2>Repositories that are True for Selected Cohorts:</h2>
+<div id="filtered_repos_table_2" class="card" style="padding: 0;"><span id="cell-ed5ad8b1" class="observablehq--loading"></span> </div> 
+</span><h3 id="bar-chart-that-displays-repositories-filtered-by-cohort-checkboxes-sorted-by-a-selected-variable" tabindex="-1"><a class="observablehq-header-anchor" href="#bar-chart-that-displays-repositories-filtered-by-cohort-checkboxes-sorted-by-a-selected-variable">Bar chart that displays repositories filtered by cohort checkboxes sorted by a selected variable</a></h3>
+<div id="cell-d7dcf1d9" class="observablehq observablehq--block"></div>
+<div id="cell-634ba20e" class="observablehq observablehq--block observablehq--loading"></div>
+<h2 id="bar-charts-of-cohort-groups" tabindex="-1"><a class="observablehq-header-anchor" href="#bar-charts-of-cohort-groups">Bar charts of cohort groups</a></h2>
+<div id="cell-01ba4719" class="observablehq observablehq--block"></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./community"><span>Community Size</span></a><a rel="next" href="./filter_cohorts_SQL"><span>Filter by Cohort with SQL</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank">Observable</a> on <a title="2024-03-17T13:40:38">Mar 17, 2024</a>.</div>
+</footer>
+</div>

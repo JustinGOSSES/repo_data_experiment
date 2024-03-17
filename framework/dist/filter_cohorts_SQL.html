@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Filter by Cohort with SQL | framework_code_repos</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/duckdb.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.14/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/apache-arrow@13.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/binary-search-bounds@2.0.5/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-axis@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-brush@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-chord@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-color@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-contour@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dsv@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-ease@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-fetch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-format@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-interpolate@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-path@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-polygon@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-random@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-selection@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-shape@3.2.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time-format@4.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-timer@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-transition@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-zoom@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/delaunator@5.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/flatbuffers@23.5.26/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/htl@0.3.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/internmap@2.0.3/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/interval-tree-1d@1.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/isoformat@0.2.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/robust-predicates@3.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/tabulator-tables/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/tslib@2.6.2/+esm">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+
+define({id: "99931771", inputs: ["FileAttachment"], outputs: ["Tabulator","sql","duckdb","DuckDBClient","repos"], files: [{"name":"./data/all_orgs_merged_20240120.csv","mimeType":"text/csv","path":"./_file/data/all_orgs_merged_20240120.csv"}], body: async (FileAttachment) => {
+const [{default: Tabulator}, {sql}, duckdb, {DuckDBClient}] = await Promise.all([import("https://cdn.jsdelivr.net/npm/tabulator-tables/+esm"), import("./_observablehq/stdlib/duckdb.js"), import("https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm"), import("./_observablehq/stdlib/duckdb.js")]);
+// IMPORT LIBRARIES & DATA
+
+
+
+
+// IMPORT DATA 
+const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+
+
+return {Tabulator,sql,duckdb,DuckDBClient,repos};
+}});
+
+define({id: "187024fe", inputs: ["Plot","d3","repos"], outputs: ["color","colorLanguage"], body: (Plot,d3,repos) => {
+//  Data utilities for plotting
+const color = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.owner).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+
+const colorLanguage = Plot.scale({
+  color: {
+    type: "categorical",
+    domain: d3.groupSort(repos, (D) => -D.length, (d) => d.language).filter((d) => d !== "Other"),
+    unknown: "var(--theme-foreground-muted)"
+  }
+});
+return {color,colorLanguage};
+}});
+
+define({id: "02fc0985", inputs: ["repos"], outputs: ["createCohortColumns","repos_cohort_processed_BaseCohorts","repos_cohort_processed","replaceDotInColNameWithUnderscore"], body: async (repos) => {
+const [{createCohortColumns}, {repos_cohort_processed_BaseCohorts}] = await Promise.all([import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9"), import("./_import/components/cohorts.js?sha=0d64903ed571f4eed1aea9da9284070f7fc9a93242a7a587fedff018bf56f2d9")]);
+// CREATING COHORTS 
+
+
+
+var repos_cohort_processed = repos_cohort_processed_BaseCohorts(repos)
+
+function replaceDotInColNameWithUnderscore(repos_cohort_processed){
+  return repos_cohort_processed.map(obj => {
+    const newObj = {};
+    for (let key in obj) {
+      newObj[key.replace(/\./g, '_')] = obj[key];
+    }
+    return newObj;
+  });
+}
+
+repos_cohort_processed = replaceDotInColNameWithUnderscore(repos_cohort_processed)
+
+return {createCohortColumns,repos_cohort_processed_BaseCohorts,repos_cohort_processed,replaceDotInColNameWithUnderscore};
+}});
+
+define({id: "a658b7e2", inputs: ["display","repos_cohort_processed","Inputs"], outputs: ["table_all2"], body: (display,repos_cohort_processed,Inputs) => {
+display(repos_cohort_processed)
+
+
+const table_all2 = 
+  Inputs.table(repos_cohort_processed, {
+   rows:16
+  })
+
+return {table_all2};
+}});
+
+define({id: "0c85bea3", inputs: ["DuckDBClient","repos_cohort_processed"], outputs: ["dbRepos"], body: (DuckDBClient,repos_cohort_processed) => {
+//const dbRepos = DuckDBClient.of({reposSQL: FileAttachment("./data/all_orgs_merged_20240120.csv")});
+const dbRepos = DuckDBClient.of({reposSQL: repos_cohort_processed});
+
+return {dbRepos};
+}});
+
+define({id: "986a9e73", inputs: ["view","Inputs"], outputs: ["sizeMin","stargazer_count_min","limitNumberRowsToShow"], body: (view,Inputs) => {
+//// THIS LINE DOES NOT WORK YET
+// const text = view(Inputs.text({label:"SQL query",value:`SELECT * FROM reposSQL LIMIT 10`}));
+// const sub = `WHERE size`
+
+const sizeMin = view(Inputs.range([0, 5000000], {label: "size in bytes",value:1000}));
+const stargazer_count_min = view(Inputs.range([0, 10000], {label: "stargazers_count min",value:20}));
+const limitNumberRowsToShow = view(Inputs.range([0, 5000], {label: "max number of rows to show",value:10,step:1}));
+
+
+
+return {sizeMin,stargazer_count_min,limitNumberRowsToShow};
+}});
+
+define({id: "e3b0c442", body: () => {
+
+}});
+
+define({id: "bd996a32", inputs: ["dbRepos","sizeMin","stargazer_count_min","limitNumberRowsToShow"], outputs: ["dbRepos_FilteredBySQL"], body: (dbRepos,sizeMin,stargazer_count_min,limitNumberRowsToShow) => {
+const dbRepos_FilteredBySQL = dbRepos.sql`SELECT * FROM reposSQL WHERE size > ${sizeMin} AND stargazers_count > ${stargazer_count_min} LIMIT ${limitNumberRowsToShow}`
+
+return {dbRepos_FilteredBySQL};
+}});
+
+define({id: "2ea8cde2", inline: true, inputs: ["sizeMin","display"], body: async (sizeMin,display) => {
+display(await(
+sizeMin
+))
+}});
+
+define({id: "fe42afde", inline: true, inputs: ["stargazer_count_min","display"], body: async (stargazer_count_min,display) => {
+display(await(
+stargazer_count_min
+))
+}});
+
+define({id: "e593b01c", inline: true, inputs: ["limitNumberRowsToShow","display"], body: async (limitNumberRowsToShow,display) => {
+display(await(
+limitNumberRowsToShow
+))
+}});
+
+define({id: "b78b078d", inputs: ["display","dbRepos_FilteredBySQL","view","Inputs"], outputs: ["table_SQLunfiltered"], body: (display,dbRepos_FilteredBySQL,view,Inputs) => {
+display(dbRepos_FilteredBySQL.length)
+
+const table_SQLunfiltered = 
+  view(Inputs.table(dbRepos_FilteredBySQL))
+
+return {table_SQLunfiltered};
+}});
+
+define({id: "449e16f1", inputs: ["dbRepos"], outputs: ["dbRepos_FilteredBySQL_b"], body: (dbRepos) => {
+const dbRepos_FilteredBySQL_b = dbRepos.sql`SELECT * FROM reposSQL WHERE "commit_stats_total_committers" > 100 AND "commit_stats_total_committers" < 1000000000`
+return {dbRepos_FilteredBySQL_b};
+}});
+
+define({id: "e27d415b", inputs: ["display","dbRepos_FilteredBySQL_b","view","Inputs"], outputs: ["table_SQLunfiltered"], body: (display,dbRepos_FilteredBySQL_b,view,Inputs) => {
+display( dbRepos_FilteredBySQL_b.length)
+
+const table_SQLunfiltered = 
+  view(Inputs.table( dbRepos_FilteredBySQL_b))
+
+return {table_SQLunfiltered};
+}});
+
+define({id: "5bb88eef", inputs: ["dbRepos"], outputs: ["dbRepos_FilteredBySQL_c"], body: (dbRepos) => {
+const dbRepos_FilteredBySQL_c = dbRepos.sql`SELECT * FROM reposSQL WHERE "commit_stats_total_committers" > 100 AND "commit_stats_total_committers" < 1000000000 AND "cohort_age_seniorMore1095d" == true AND "full_name" IS NOT NULl`
+return {dbRepos_FilteredBySQL_c};
+}});
+
+define({id: "66ceb1ff", inputs: ["display","dbRepos_FilteredBySQL_c","view","Inputs"], outputs: ["table_SQLunfiltered"], body: (display,dbRepos_FilteredBySQL_c,view,Inputs) => {
+display( dbRepos_FilteredBySQL_c.length)
+
+const table_SQLunfiltered = 
+  view(Inputs.table( dbRepos_FilteredBySQL_c))
+
+return {table_SQLunfiltered};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">framework_code_repos</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./code-repositories">Over time</a></li>
+    <li class="observablehq-link"><a href="./community">Community Size</a></li>
+    <li class="observablehq-link"><a href="./filter_cohorts">Filter by Cohort</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./filter_cohorts_SQL">Filter by Cohort with SQL</a></li>
+    <li class="observablehq-link"><a href="./oldKeep">Data</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="#observablehq-main h1:not(:first-of-type), #observablehq-main h2:not(h1 + h2):has(a.observablehq-header-anchor)">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#filtering-by-sql">Filtering by SQL</a></li>
+</ol>
+</nav>
+</aside>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<head>
+<link href="https://unpkg.com/tabulator-tables@5.6.1/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.6.1/dist/js/tabulator.min.js"></script>
+</head>
+<style>
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans-serif);
+  margin: 4rem 0 8rem;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 2rem 0;
+  max-width: none;
+  font-size: 14vw;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h2 {
+  margin: 0;
+  max-width: 34em;
+  font-size: 20px;
+  font-style: initial;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--theme-foreground-muted);
+}
+
+@media (min-width: 640px) {
+  .hero h1 {
+    font-size: 90px;
+  }
+}
+
+</style>
+<h1 id="filter-by-cohort-with-sql" tabindex="-1"><a class="observablehq-header-anchor" href="#filter-by-cohort-with-sql">Filter by Cohort with SQL</a></h1>
+<h2 id="visualizing-code-repositories-metadata" tabindex="-1"><a class="observablehq-header-anchor" href="#visualizing-code-repositories-metadata">Visualizing Code Repositories Metadata</a></h2>
+<p><a href="https://github.com/JustinGOSSES/repo_data_experiment">The code repository that builds this page</a></p>
+<h3 id="all-github-organizations-data-gathered-in-the-flattened-csv" tabindex="-1"><a class="observablehq-header-anchor" href="#all-github-organizations-data-gathered-in-the-flattened-csv">All GitHub Organizations Data Gathered in the Flattened CSV</a></h3>
+<pre><code>const repos = FileAttachment("./data/all_orgs_merged_20240120.csv").csv();
+</code></pre>
+<div id="cell-99931771" class="observablehq observablehq--block"></div>
+<div id="cell-187024fe" class="observablehq observablehq--block"></div>
+<div id="cell-02fc0985" class="observablehq observablehq--block"></div>
+<h5 id="processed-data-with-cohorts-calculated" tabindex="-1"><a class="observablehq-header-anchor" href="#processed-data-with-cohorts-calculated">Processed data with cohorts calculated</a></h5>
+<div id="cell-a658b7e2" class="observablehq observablehq--block"></div>
+<hr>
+<h2 id="filtering-by-sql" tabindex="-1"><a class="observablehq-header-anchor" href="#filtering-by-sql">Filtering by SQL</a></h2>
+<div id="cell-0c85bea3" class="observablehq observablehq--block"></div>
+<div id="cell-986a9e73" class="observablehq observablehq--block"></div>
+<div id="cell-e3b0c442" class="observablehq observablehq--block"></div>
+<div id="cell-bd996a32" class="observablehq observablehq--block"></div>
+<h3 id="table-of-repositories-filtered-by-query" tabindex="-1"><a class="observablehq-header-anchor" href="#table-of-repositories-filtered-by-query">Table of repositories filtered by query</a></h3>
+<p>SELECT * FROM reposSQL WHERE size &gt; <span id="cell-2ea8cde2" class="observablehq--loading"></span> AND stargazers_count &gt; <span id="cell-fe42afde" class="observablehq--loading"></span> LIMIT <span id="cell-e593b01c" class="observablehq--loading"></span></p>
+<div id="cell-b78b078d" class="observablehq observablehq--block"></div>
+<h3 id="a-second-filter-by-sql-to-find-nasa-repositories-built-in-distributed-fashion-by-a-community" tabindex="-1"><a class="observablehq-header-anchor" href="#a-second-filter-by-sql-to-find-nasa-repositories-built-in-distributed-fashion-by-a-community">A second filter by SQL to find NASA repositories built in distributed fashion by a community</a></h3>
+<p><a href="https://report.opensustain.tech/chapters/development-distribution-score.html">Distributed development score or DDS</a>
+is an approximation of how much the project has been developed by a single person using commit distribution.
+It is one way to calculated a bus score, meaning would the community that produces the package survive if one of the core contributors got hit by a bus.
+Higher scores mean a project is more likely to continue if one person leaves.</p>
+<div id="cell-449e16f1" class="observablehq observablehq--block"></div>
+<h4 id="query-%3D" tabindex="-1"><a class="observablehq-header-anchor" href="#query-%3D">Query =</a></h4>
+<pre><code>SELECT * FROM reposSQL WHERE "commit_stats_total_committers" &gt; 100 AND "commit_stats_total_committers" &lt; 1000000000
+</code></pre>
+<div id="cell-e27d415b" class="observablehq observablehq--block"></div>
+<h3 id="third-filtering%3A-same-filter-as-above-but-filtering-to-senior-citizen-repositories" tabindex="-1"><a class="observablehq-header-anchor" href="#third-filtering%3A-same-filter-as-above-but-filtering-to-senior-citizen-repositories">Third filtering: same filter as above but filtering to senior citizen repositories</a></h3>
+<div id="cell-5bb88eef" class="observablehq observablehq--block"></div>
+<h4 id="query-%3D-1" tabindex="-1"><a class="observablehq-header-anchor" href="#query-%3D-1">Query =</a></h4>
+<pre><code>SELECT * FROM reposSQL WHERE "commit_stats_total_committers" &gt; 100 AND "commit_stats_total_committers" &lt; 1000000000 AND "cohort_age_seniorMore1095d" == true AND "full_name" IS NOT NULl
+</code></pre>
+<div id="cell-66ceb1ff" class="observablehq observablehq--block"></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./filter_cohorts"><span>Filter by Cohort</span></a><a rel="next" href="./oldKeep"><span>Data</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank">Observable</a> on <a title="2024-03-17T13:40:38">Mar 17, 2024</a>.</div>
+</footer>
+</div>
