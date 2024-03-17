@@ -125,7 +125,7 @@ export function repos_cohort_processed_BaseCohorts(repos){
         //// created calculated columns used in cohorts ////
         {"addYearToRepos":[]},
         {"addAgeInDaysCol":[]},
-        {"addDaysSinceCols":["updated_at","cohort_daysSinceUpdated"]},
+        {"addDaysSinceCols":["updated_at","daysSinceUpdated"]},
         {"parseColumnsIntoIntegersFromStrings":["commit_stats.total_commits", "commit_stats.total_committers","commit_stats.mean_commits", "commit_stats.dds"]},
         {"createRatioColumn":["stargazers_count","commit_stats.total_committers","ratio_stargazersToCommitters"]},
         {"createRatioColumn":["stargazers_count","forks_count","ratio_stargazersToForks"]},
@@ -344,3 +344,59 @@ export function addFilterButton(repos, cohort_columns_state) {
   
 //   const reposFinalAfterCohorts = reposWithMoreCols_D
   
+
+function modifyEmptyValues(data) {
+    return data.map((item) => {
+        for (const key in item) {
+            if (item[key] === "") {
+                item[key] = " ";
+            }
+        }
+        return item;
+    });
+}
+
+function takeOutAllKeysExcept(arrayOfKeys){
+    return function(data){
+        return data.map((item) => {
+            const newItem = {};
+            for (const key in item) {
+                if (arrayOfKeys.includes(key)) {
+                    newItem[key] = item[key];
+                }
+            }
+            return newItem;
+        });
+    }
+}
+
+function flattenJSON(data){
+    const flattenObject = (obj, prefix = '_') => {
+        const flattened = {};
+        for (const key in obj) {
+            if (typeof obj[key] === 'object' && obj[key] !== null) {
+                const nestedKeys = flattenObject(obj[key], `${prefix}${key}_`);
+                Object.assign(flattened, nestedKeys);
+            } else {
+                const newKey = key.replace(prefix, '');
+                flattened[newKey] = obj[key];
+            }
+        }
+        return flattened;
+    };
+
+    return data.map((item) => {
+        return flattenObject(item);
+    });
+}
+
+function takeOffPrefix(data){
+    return data.map((item) => {
+        const modifiedItem = {};
+        for (const key in item) {
+            const modifiedKey = key.replace("_", "");
+            modifiedItem[modifiedKey] = typeof item[key] === 'string' ? item[key].replace("_", "") : item[key];
+        }
+        return modifiedItem;
+    });
+}
